@@ -2,8 +2,7 @@ from django.db.models.fields import NullBooleanField
 from django.shortcuts import render
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
-
-from myapp.models import HotelName, NightOut, Payment, Students
+from myapp.models import HotelName, NightOut, Payment, Students, Volunteer
 
 
 def home_page(request):
@@ -54,5 +53,12 @@ def get_all_paired_students(student_id):
         
 def get_all_hotel_rooms(hotel_name):
     return HotelName.objects.filter(name =hotel_name)
+
+def get_all_volunteer_places(volunteer_id):
+    all_places = get_all_volunteer_places(volunteer_id)
+    all_students=get_all_students()
+    if 
+     return Volunteer.objects.all()
+
 
 
