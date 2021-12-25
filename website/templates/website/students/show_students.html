@@ -1,0 +1,22 @@
+{% extends "website/template.html" %}
+{% block body %}
+
+{% include "website/students/add_students.html" %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">first_name</th>
+        <th scope="col">last_name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in students %}
+    <tr>
+      <th scope="row"> {{ student.first_name }}</th>
+      <td> {{ student.last_name }}</td>
+    </tr>
+  {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

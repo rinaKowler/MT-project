@@ -9,8 +9,6 @@ from django.db.models.fields.related import ForeignKey
 
 
 
-
-
 class HotelName(models.Model):
     name= models.CharField(max_length=20)
     room = models.ForeignKey(
@@ -32,10 +30,6 @@ class NightOut(models.Model):
 class Students(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
-    where_would_you_want_to_volunteer = models.CharField(max_length=20,blank=True)
-    explain_way =models.TextField(max_length=500,blank=True)
-    do_you_have_experience=models.BooleanField()
-    describe= models.TextField(max_length=500,blank=True)
     talents_and_level =models.CharField(max_length=200,blank=True)
     def _str_ (self):
          return self.first_name +' '+ self.last_name

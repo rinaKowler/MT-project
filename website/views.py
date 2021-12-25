@@ -6,6 +6,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from myapp.models import HotelName, NightOut, Payment, Students, Volunteer
 from django.db.models import Q
+from myapp.forms import StudentsForm
 
 
 def home_page(request):
@@ -17,11 +18,27 @@ def home_page(request):
 
     })
 
-def show_night_out_arrangement(request, trip_date):
-    nightout = NightOut.objects.filter(trip_date__year = trip_date[:4], trip_date__month = trip_date[4:6]
-    ).all()
+def get_trips(request):
+    all_trips = NightOut.objects.values_list('trip_date', flat=True).distinct()
+    for trip in all_trips:
+        print(trip)
+    return render(request,"website/show_trip.html",{
+        "trips":all_trips
+    })
+
+def show_night_out_arrangement(request):
+    nightout = NightOut.objects.all()
+    if nightout:
+        dates = set([night.trip_date for night in nightout])
+        all_dates =[]
+        for date in dates:
+            dates = [night for night in nightout if night.trip_date == date]
+            all_dates.append({'dates':dates, 'id':dates[0].id, 'hotel':dates[0].hotel.name,
+            'date':dates[0].trip_date})
+        print(all_dates)
+    # nightout = NightOut.objects.filter(trip_date__year = trip_date[:4], trip_date__month = trip_date[4:6]
     return render(request,"website/night_out_hotel.html",{
-        "hotel": nightout
+        "dates": all_dates
     })
 
 
@@ -43,11 +60,23 @@ def set_hotel_arrengment(hotel_id):
     return rooms
 
 def  get_all_students(request):
-     return render (request,"website/students.html",{"name":name})
+    if request.method == 'POST':
+        form = StudentsForm(request.POST)
+        if form.is_valid():
+            student = form.save()
+    all_students = Students.objects.all()
+    return render (request,"website/students/show_students.html",{
+        "students":all_students,
+        "studentsForm": StudentsForm(),
+})
 
 def get_all_unpaired_students(student_id):
     return None
 #     return Students.objects.filter()
+
+def valnter_places(request):
+    return render (request,"website/students/show_students.html",{
+})
 
 def get_all_paired_students(student_id):
     all_night_outs = NightOut.objects.filter(student__id = student_id)
