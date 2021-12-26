@@ -9,8 +9,6 @@ from django.db.models.fields.related import ForeignKey
 
 
 
-
-
 class HotelName(models.Model):
     name= models.CharField(max_length=20)
     room = models.ForeignKey(
@@ -22,7 +20,7 @@ class HotelRooms(models.Model):
     number_of_beds=models.IntegerField( null=True, blank=True)
 
 class NightOut(models.Model):
-    trip_date =models.DateTimeField()   
+    trip_date =models.DateField()  
     hotel = models.ForeignKey(
         'HotelName', on_delete=models.RESTRICT, null=True, blank=True)
     student = models.ForeignKey(
@@ -32,10 +30,6 @@ class NightOut(models.Model):
 class Students(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
-    where_would_you_want_to_volunteer = models.CharField(max_length=20,blank=True)
-    explain_way =models.TextField(max_length=500,blank=True)
-    do_you_have_experience=models.BooleanField()
-    describe= models.TextField(max_length=500,blank=True)
     talents_and_level =models.CharField(max_length=200,blank=True)
     def _str_ (self):
          return self.first_name +' '+ self.last_name
@@ -45,7 +39,7 @@ class Event (models.Model):
     event_name=models.CharField(max_length=50)
     place=models.CharField(max_length=200)
     manager=models.CharField(max_length=50)
-    event_date=models.DateTimeField(auto_now=True)
+    event_date=models.DateField(auto_now=True)
     payment = models.ForeignKey(
         'Payment', on_delete=models.RESTRICT, null=True, blank=True)
     
@@ -54,7 +48,7 @@ class Event (models.Model):
 
 class Payment (models.Model):
     company=models.CharField(max_length=200)
-    purchased_date=models.DateTimeField(auto_now=True, null=True, blank=True)
+    purchased_date=models.DateField(auto_now=True, blank=True)
     managed_by=models.CharField(max_length=50, null=True, blank=True)
     description=models.TextField(max_length=400, null=True, blank=True)
     amount=models.IntegerField( null=True, blank=True)
