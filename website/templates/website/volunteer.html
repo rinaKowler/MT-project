@@ -1,0 +1,26 @@
+{% extends "website/template.html" %}
+{% block body %}
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">category</th>
+        <th scope="col">volunteer_place_name</th>
+        <th scope="col">address</th>
+        <th scope="col">describe</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for v in volunteer %}
+    <tr>
+      <th scope="row"> {{ v.category }}</th>
+      <td> {{ v.volunteer_place_name }}</td>
+      <td> {{ v.address }}</td> 
+      <td> {{ v.describe }}</td>
+    </tr>
+  {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+

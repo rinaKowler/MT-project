@@ -1,0 +1,35 @@
+{% extends "website/template.html" %}
+{% block body %}
+
+{% include "website/payments/add_payment.html" %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">purchased_date</th>
+      <th scope="col">company</th>
+      <th scope="col">managed_by</th>
+      <th scope="col">description</th>
+      <th scope="col">paid</th>
+      <th scope="col">amount</th>
+      <th scope="col">if_not_way</th>
+      <th scope="col">payment_date</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    {% for payment in payments %}
+  <tr>
+    <th scope="row"> {{ payment.purchased_date }}</th>
+    <td> {{ payment.company }}</td>
+    <td> {{ payment.managed_by }}</td>
+    <td> {{ payment.description }}</td>
+    <td> {{ payment.paid }}</td>
+    <td> {{ payment.amount }}</td>
+    <td> {{ payment.if_not_way }}</td>
+    <td> {{ payment.payment_date }}</td>
+  </tr>
+{% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

@@ -16,12 +16,12 @@
     </tr>
   </thead>
   <tbody>
-    {% for payment in payments %}
+    {% for payments in payment %}
   <tr>
-    <th scope="row"> {{ payment.company }}</th>
-    <td> {{ payment.amount }}</td>
-    <td> {{ payment.purchased_date }}</td>
-    <td> {{ payment.managed_by }}</td>
+    <th scope="row"> {{ payments.company }}</th>
+    <td> {{ payments.amount }}</td>
+    <td> {{ payments.purchased_date }}</td>
+    <td> {{ payments.managed_by }}</td>
   </tr>
 {% endfor %}
   </tbody>

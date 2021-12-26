@@ -6,7 +6,8 @@ from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from myapp.models import HotelName, NightOut, Payment, Students, Volunteer
 from django.db.models import Q
-from myapp.forms import StudentsForm
+from myapp.forms import StudentsForm,PaymentsForm,VolunteerForm
+
 
 
 def home_page(request):
@@ -28,6 +29,7 @@ def get_trips(request):
 
 def show_night_out_arrangement(request):
     nightout = NightOut.objects.all()
+    all_dates =[]
     if nightout:
         dates = set([night.trip_date for night in nightout])
         all_dates =[]
@@ -38,7 +40,7 @@ def show_night_out_arrangement(request):
         print(all_dates)
     # nightout = NightOut.objects.filter(trip_date__year = trip_date[:4], trip_date__month = trip_date[4:6]
     return render(request,"website/night_out_hotel.html",{
-        "dates": all_dates
+        "dates":all_dates
     })
 
 
@@ -70,12 +72,32 @@ def  get_all_students(request):
         "studentsForm": StudentsForm(),
 })
 
+
+def  get_all_payments(request):
+    if request.method == 'POST':
+        form = PaymentsForm(request.POST)
+        if form.is_valid():
+            payment = form.save()
+    all_payments = Payment.objects.all()
+    return render (request,"website/payments/show_payments.html",{
+        "payments":all_payments,
+        "paymentsForm": PaymentsForm(),
+})
+
 def get_all_unpaired_students(student_id):
     return None
-#     return Students.objects.filter()
+    return Students.objects.filter() 
 
 def valnter_places(request):
-    return render (request,"website/students/show_students.html",{
+    if request.method == 'POST':
+         form = VolunteerForm(request.POST)
+         if form.is_valid():
+             volunteer = form.save()
+    all_volunteer = Volunteer.objects.all()
+    return render (request,"website/volunteer.html",{
+        "volunteer":all_volunteer,
+         "volunteersForm": VolunteerForm(),
+  
 })
 
 def get_all_paired_students(student_id):
