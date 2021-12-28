@@ -23,6 +23,7 @@ class VolunteerForm(ModelForm):
     class Meta:
         model = Volunteer
         fields = ['category','volunteer_place_name','address','describe']
+        
 class EventForm(ModelForm):
     class Meta:
         model = Event

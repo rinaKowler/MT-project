@@ -16,7 +16,7 @@
        <div class="modal-body">
            <form action="{% url 'website:hotel' %}" method='post'>
                {% csrf_token %}
-           {{ HotelForm }}
+           {{ hotelForm }}
            <button type="submit" class="btn btn-primary">Save</button>
 
            </form>

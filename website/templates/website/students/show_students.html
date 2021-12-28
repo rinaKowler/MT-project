@@ -7,7 +7,6 @@
       <tr>
         <th scope="col">First Name</th>
         <th scope="col">Last Name</th>
-        <th scope="col">fdfd</th>
         <th scope="col">Talents & Level</th>
       </tr>
     </thead>
@@ -16,10 +15,11 @@
     <tr>
       <th scope="row"> {{ student.first_name }}</th>
       <td> {{ student.last_name }}</td>
-      <td>  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Add Student
-         </button> </td>
-        <td> {{ student.talents_and_level }}</td>
+      <td> {{ student.talents_and_level }}</td>
+
+  
+
+  
     </tr>
   {% endfor %}
     </tbody>
