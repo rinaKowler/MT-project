@@ -1,0 +1,22 @@
+{% extends "website/template.html" %}
+{% block body %}
+{% include "website/hotel/add_hotel.html" %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Hotel Name</th>
+      <th scope="col">Rooms</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for h in hotel %}
+  <tr>
+    <th scope="row"> {{ h.name }}</th>
+    <td> {{ h.room }}</td>
+
+{% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

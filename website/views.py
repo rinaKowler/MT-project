@@ -4,9 +4,9 @@ from django.db.models.fields import NullBooleanField
 from django.shortcuts import render
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
-from myapp.models import HotelName, NightOut, Payment, Students, Volunteer
+from myapp.models import Event, HotelName, HotelRooms, NightOut, Payment, Students, Volunteer,Staff
 from django.db.models import Q
-from myapp.forms import StudentsForm,PaymentsForm,VolunteerForm
+from myapp.forms import StudentsForm,PaymentsForm,VolunteerForm,HotelForm,RoomsForm,EventForm,StaffForm
 
 
 
@@ -94,11 +94,21 @@ def valnter_places(request):
          if form.is_valid():
              volunteer = form.save()
     all_volunteer = Volunteer.objects.all()
-    return render (request,"website/volunteer.html",{
+    return render (request,"website/volunteer/show_volunteer_places.html",{
         "volunteer":all_volunteer,
          "volunteersForm": VolunteerForm(),
   
 })
+def  get_all_hotels(request):
+    if request.method == 'POST':
+        form = HotelForm(request.POST)
+        if form.is_valid():
+            hotel = form.save()
+    all_hotels = HotelName.objects.all()
+    return render (request,"website/hotel/show_hotel.html",{
+        "hotel":all_hotels,
+        "hotelForm": HotelForm(),
+    })
 
 def get_all_paired_students(student_id):
     all_night_outs = NightOut.objects.filter(student__id = student_id)
@@ -117,5 +127,35 @@ def get_all_volunteer_places(volunteer_id):
     all_students=get_all_students()
     return Volunteer.objects.all()
 
+def get_all_rooms(request):   
+    if request.method == 'POST':
+        form = RoomsForm(request.POST)
+        if form.is_valid():
+            room = form.save()
+    all_rooms =HotelRooms.objects.all()
+    return render (request,"website/hotel/add_rooms.html",{
+        "room":all_rooms,
+        "RoosmForm": RoomsForm(),
 
-
+    })
+def  get_all_events(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            event = form.save()
+    all_events = Event.objects.all()
+    return render (request,"website/event/show_events.html",{
+        "event":all_events,
+        "eventForm": EventForm(),
+    })
+   
+def  get_all_staff(request):
+    if request.method == 'POST':
+        form = StaffForm(request.POST)
+        if form.is_valid():
+            staff = form.save()
+    all_staff = Staff.objects.all()
+    return render (request,"website/staff/show_staff.html",{
+        "staff":all_staff,
+        "staffForm": StaffForm(),
+    })

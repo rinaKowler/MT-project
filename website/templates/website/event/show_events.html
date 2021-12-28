@@ -1,0 +1,28 @@
+{% extends "website/template.html" %}
+{% block body %}
+{% include "website/event/add_events.html" %}
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Event Name</th>
+        <th scope="col">Place</th>
+        <th scope="col">Maneged By</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for e in event %}
+    <tr>
+      <th scope="row"> {{ e.event_name }}</th>
+      <td> {{ e.place }}</td>
+      <td> {{ e.manager }}</td>
+      <td> {{ e.event_date }}</td>
+    </tr>
+  {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+
+

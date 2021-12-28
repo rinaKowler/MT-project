@@ -1,0 +1,27 @@
+{% extends "website/template.html" %}
+{% block body %}
+
+{% include "website/staff/add_staff.html" %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Title</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in staff %}
+    <tr>
+      <th scope="row"> {{ s.first_name }}</th>
+      <td> {{ s.last_name }}</td>
+      <td> {{ s.title }}</td>
+      <td> {{ s.email }}</td>
+    </tr>
+  {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+talents_and_level

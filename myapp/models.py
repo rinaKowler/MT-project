@@ -63,6 +63,7 @@ class Staff(models.Model):
     first_name=models.CharField(max_length=200)
     last_name=models.CharField(max_length=200)
     title=models.CharField(max_length=200)
+    email = models.EmailField( blank=True)
 
 class Volunteer(models.Model):
     category=models.CharField(max_length=200)

@@ -1,5 +1,5 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Add Payment
+    Add add_rooms
 
    </button>
    
@@ -14,9 +14,9 @@
            </button>
          </div>
          <div class="modal-body">
-             <form action="{% url 'website:payments' %}" method='post'>
+             <form action="{% url 'website:hotel\add_rooms' %}" method='post'>
                  {% csrf_token %}
-             {{ paymentsForm }}
+             {{ HotelRooms }}
              <button type="submit" class="btn btn-primary">Save</button>
  
              </form>
@@ -24,5 +24,6 @@
        </div>
      </div>
    </div>
+   
  
  

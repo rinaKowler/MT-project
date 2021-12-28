@@ -10,7 +10,11 @@ urlpatterns = [
     path("", views.home_page, name="home_page"),
     path("volunteer", views.valnter_places, name="volunteer"),
     path("get_night_out",views.show_night_out_arrangement, name = "night_out"),
-    path("show_trip",views.get_trips , name="show_trip")
+    path("show_trip",views.get_trips , name="show_trip"),
+    path("hotel",views.get_all_hotels , name="hotel"),
+    path("staff",views.get_all_staff , name="staff"),
+    path("event",views.get_all_events , name="event")
+
    # path("get_all_payments/<str:amount",views.show_all_pament_payment, name = "payment"),
    # path("get_all_students/<str: first_name", views.get_all_students, name="get_all_students"),
 ]
