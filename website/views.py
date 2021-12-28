@@ -135,7 +135,7 @@ def get_all_rooms(request):
     all_rooms =HotelRooms.objects.all()
     return render (request,"website/hotel/add_rooms.html",{
         "room":all_rooms,
-        "RoosmForm": RoomsForm(),
+        "roosmForm": RoomsForm(),
 
     })
 def  get_all_events(request):
@@ -144,7 +144,7 @@ def  get_all_events(request):
         if form.is_valid():
             event = form.save()
     all_events = Event.objects.all()
-    return render (request,"website/event/show_events.html",{
+    return render (request,"website/events/show_events.html",{
         "event":all_events,
         "eventForm": EventForm(),
     })

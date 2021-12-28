@@ -1,6 +1,8 @@
 {% extends "website/template.html" %}
 {% block body %}
 {% include "website/hotel/add_hotel.html" %}
+
+
 <table class="table">
   <thead>
     <tr>
@@ -13,7 +15,9 @@
     {% for h in hotel %}
   <tr>
     <th scope="row"> {{ h.name }}</th>
-    <td> {{ h.room }}</td>
+    <td> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      Add Rooms
+     </button> </td>
 
 {% endfor %}
   </tbody>

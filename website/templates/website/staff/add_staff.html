@@ -1,7 +1,7 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
     Add Staff
    </button>
-   
+  
    <!-- Modal -->
    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
      <div class="modal-dialog" role="document">
@@ -13,6 +13,7 @@
            </button>
          </div>
          <div class="modal-body">
+           
              <form action="{% url 'website:volunteer' %}" method='post'>
                  {% csrf_token %}
              {{ StaffForm }}

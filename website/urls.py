@@ -13,8 +13,8 @@ urlpatterns = [
     path("show_trip",views.get_trips , name="show_trip"),
     path("hotel",views.get_all_hotels , name="hotel"),
     path("staff",views.get_all_staff , name="staff"),
-    path("event",views.get_all_events , name="event")
-
+    path("events",views.get_all_events , name="events"),
+    path("rooma",views.get_all_rooms , name="rooms")
    # path("get_all_payments/<str:amount",views.show_all_pament_payment, name = "payment"),
    # path("get_all_students/<str: first_name", views.get_all_students, name="get_all_students"),
 ]
