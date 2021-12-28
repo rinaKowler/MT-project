@@ -42,4 +42,5 @@ class StaffForm(ModelForm):
     class Meta:
         model = Staff
         fields = ['first_name','last_name','title','email']    
+
     
