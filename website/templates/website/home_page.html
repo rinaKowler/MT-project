@@ -1,10 +1,25 @@
 {% extends "website/template.html" %}
+{% block head %}
+{% endblock %}
 {% block body %}
-{% for student in paired %}
-<p>
-  {{ student.id}}
+{% load static %}
+
+
+<p class="aligncenter">
+  <img src="static/website/images/MT_Logo_GOLD.jpg" alt="centered image" />
 </p>
-{% endfor %}
+<style>
+  .aligncenter {
+      text-align: center;
+  }
+  </style>
+
+<button type="button" class="btn btn-dark btn-lg btn-block">payments</button>
+<button type="button" class="btn btn-dark btn-lg btn-block">volunteer</button>
+<button type="button" class="btn btn-dark btn-lg btn-block">nights out</button>
+
+
+
 <p>Unpyed payments</p>
 <table class="table">
   <thead>

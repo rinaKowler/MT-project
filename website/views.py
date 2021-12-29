@@ -61,6 +61,26 @@ def set_hotel_arrengment(hotel_id):
     # todo:add room_students to db
     return rooms
 
+
+        
+def get_all_unpaired_students(student_id):
+    return None
+    return Students.objects.filter(),
+
+
+
+def get_all_paired_students(student_id):
+    all_night_outs = NightOut.objects.filter(student__id = student_id)
+    all_paired_students =[]
+    for night_out in all_night_outs:
+        students_in = NightOut.objects.filter(hotel__id = night_out.hotel.id, trip_date = night_out.trip_date).exclude(student__id = night_out.student_id)
+        for paird in students_in:
+            all_paired_students.append(paird.student)
+    return set(all_paired_students)
+        
+def get_all_hotel_rooms(hotel_name):
+    return HotelName.objects.filter(name =hotel_name)
+
 def  get_all_students(request):
     if request.method == 'POST':
         form = StudentsForm(request.POST)
@@ -82,11 +102,7 @@ def  get_all_payments(request):
     return render (request,"website/payments/show_payments.html",{
         "payments":all_payments,
         "paymentsForm": PaymentsForm(),
-})
-
-def get_all_unpaired_students(student_id):
-    return None
-    return Students.objects.filter() 
+     } ) 
 
 def valnter_places(request):
     if request.method == 'POST':
@@ -98,7 +114,7 @@ def valnter_places(request):
         "volunteer":all_volunteer,
          "volunteersForm": VolunteerForm(),
   
-})
+     })
 def  get_all_hotels(request):
     if request.method == 'POST':
         form = HotelForm(request.POST)
@@ -110,17 +126,7 @@ def  get_all_hotels(request):
         "hotelForm": HotelForm(),
     })
 
-def get_all_paired_students(student_id):
-    all_night_outs = NightOut.objects.filter(student__id = student_id)
-    all_paired_students =[]
-    for night_out in all_night_outs:
-        students_in = NightOut.objects.filter(hotel__id = night_out.hotel.id, trip_date = night_out.trip_date).exclude(student__id = night_out.student_id)
-        for paird in students_in:
-            all_paired_students.append(paird.student)
-    return set(all_paired_students)
-        
-def get_all_hotel_rooms(hotel_name):
-    return HotelName.objects.filter(name =hotel_name)
+
 
 def get_all_volunteer_places(volunteer_id):
     all_places = get_all_volunteer_places(volunteer_id)
