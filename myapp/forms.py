@@ -2,6 +2,8 @@ from django import forms
 from django.forms import ModelForm
 from .models import Staff, Students ,Payment, Volunteer,Event,HotelName,HotelRooms,Staff
 
+
+
 class DateInput(forms.DateInput):
     input_type= 'event_date'
 
@@ -34,6 +36,7 @@ class HotelForm(ModelForm):
     class Meta:
         model = HotelName
         fields = ['name','room']
+        
 class RoomsForm(ModelForm):
     class Meta:
         model = HotelRooms
