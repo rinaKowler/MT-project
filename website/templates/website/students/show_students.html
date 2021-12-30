@@ -2,7 +2,17 @@
 {% block body %}
 
 {% include "website/students/add_students.html" %}
-<table class="table">
+
+
+<td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+  Delet A Student 
+ </button> </td>
+
+ <td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+  Edit A Student
+ </button> </td>
+
+<table lass="table" width="1000" border= "5"  >
     <thead>
       <tr>
         <th scope="col">First Name</th>
@@ -13,7 +23,8 @@
     <tbody>
       {% for student in students %}
     <tr>
-      <th scope="row"> {{ student.first_name }}</th>
+      
+      <td scope="row"> {{ student.first_name }}</td>
       <td> {{ student.last_name }}</td>
       <td> {{ student.talents_and_level }}</td>
 

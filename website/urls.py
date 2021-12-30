@@ -14,7 +14,8 @@ urlpatterns = [
     path("hotel",views.get_all_hotels , name="hotel"),
     path("staff",views.get_all_staff , name="staff"),
     path("events",views.get_all_events , name="events"),
-    path("rooma",views.get_all_rooms , name="rooms")
+    path("rooms",views.get_all_rooms , name="rooms"),
+    path("add_room",views.get_all_rooms, name="add_room")
    # path("get_all_payments/<str:amount",views.show_all_pament_payment, name = "payment"),
    # path("get_all_students/<str: first_name", views.get_all_students, name="get_all_students"),
 ]

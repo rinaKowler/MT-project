@@ -5,6 +5,7 @@
 {% load static %}
 
 
+
 <p class="aligncenter">
   <img src="static/website/images/MT_Logo_GOLD.jpg" alt="centered image" />
 </p>
@@ -14,33 +15,55 @@
   }
   </style>
 
-<button type="button" class="btn btn-dark btn-lg btn-block">payments</button>
-<button type="button" class="btn btn-dark btn-lg btn-block">volunteer</button>
-<button type="button" class="btn btn-dark btn-lg btn-block">nights out</button>
+   
+
+<button type="button" style="color: honeydew; background-color: black" class= "btn btn- btn-lg btn-block">
+  <a href="{% url 'website:payments' %}"> Payments</a>
+</button>
+
+<button type="button" style="color: honeydew; background-color: black" class= " btn-lg btn-block">
+  <a href="{% url 'website:hotel' %}">Over Night Trip</a>
+</button>
+
+<button type="button" style="color: honeydew; background-color: black" class= "btn btn- btn-lg btn-block">
+  <a href="{% url 'website:events' %}">Party's/Event's</a>
+</button>
+
+<button type="button" style="color: honeydew; background-color: black" class= "btn btn- btn-lg btn-block">
+  <a href="{% url 'website:volunteer' %}">Volunteer</a>
+</button>
 
 
+<p style="font-family:Courier; color:rgb(230,190,138); font-size: 20px;"></p>
+<h1 class="point"> Unpaid  Payments </h1>
+<div style="float: left;margin-right:10px"></div>
 
-<p>Unpyed payments</p>
-<table class="table">
+<table class="table" width="500" height= "150" style="border:5" >
   <thead>
-    <tr>
-      <th scope="col">Company</th>
-      <th scope="col">Amount</th>
-      <th scope="col">Purchased Date</th>
-      <th scope="col">Managed by</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for payments in payment %}
-  <tr>
-    <th scope="row"> {{ payments.company }}</th>
-    <td> {{ payments.amount }}</td>
-    <td> {{ payments.purchased_date }}</td>
-    <td> {{ payments.managed_by }}</td>
+   <tr>
+    <th scope="col">Company</th>
+    <th scope="col">Amount</th>
+    <th scope="col">Purchased Date</th>
+    <th scope="col">Managed by</th>
   </tr>
+</thead>
+<tbody>
+  {% for p in payments %}
+<tr>
+  
+  <td scope="row"> {{ p.company }}</td>
+  <td> {{ p.amount }}</td>
+  <td> {{ p.purchased_date }}</td>
+  <td> {{ p.managed_by }}</td>
+</tr>
+
 {% endfor %}
-  </tbody>
+</tbody>
 
 </table>
+
+
+
 {% endblock %}
+
 

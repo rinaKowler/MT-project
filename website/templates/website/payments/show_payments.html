@@ -1,17 +1,31 @@
 {% extends "website/template.html" %}
 {% block body %}
 {% include "website/payments/add_payment.html" %}
+{% load crispy_forms_tags %}
+
+
+<td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+  Delet A Payment
+
+ </button> </td>
+
+ <td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+  Edit A Payment
+
+ </button> </td>
+
+
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">purchased_date</th>
+      <th scope="col">Purchased Date</th>
       <th scope="col">company</th>
-      <th scope="col">managed_by</th>
+      <th scope="col">managed by</th>
       <th scope="col">description</th>
       <th scope="col">paid</th>
       <th scope="col">amount</th>
-      <th scope="col">if_not_way</th>
-      <th scope="col">payment_date</th>
+      <th scope="col">if not way</th>
+      <th scope="col">payment date</th>
       
     </tr>
   </thead>
