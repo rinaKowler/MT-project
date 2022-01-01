@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from myapp.models import Event, HotelName, HotelRooms, NightOut, Payment, Students, Volunteer,Staff
 from django.db.models import Q
 from myapp.forms import StudentsForm,PaymentsForm,VolunteerForm,HotelForm,RoomsForm,EventForm,StaffForm
-
+from datetime import date
 
 
 def home_page(request):
@@ -28,15 +28,17 @@ def get_trips(request):
     })
 
 def show_night_out_arrangement(request):
+    if request.method == 'POST':
+        hotel_name = request.POST.get('hotel_name')
+        set_hotel_arrengment(hotel_name)
     nightout = NightOut.objects.all()
     all_dates =[]
     if nightout:
         dates = set([night.trip_date for night in nightout])
-        all_dates =[]
         for date in dates:
-            dates = [night for night in nightout if night.trip_date == date]
-            all_dates.append({'dates':dates, 'id':dates[0].id, 'hotel':dates[0].hotel.name,
-            'date':dates[0].trip_date})
+            all_students = [night for night in nightout if night.trip_date == date]
+            all_dates.append({'dates':all_students, 'id':all_students[0].id, 'hotel':all_students[0].hotel.name,
+            'date':all_students[0].trip_date})
         print(all_dates)
     # nightout = NightOut.objects.filter(trip_date__year = trip_date[:4], trip_date__month = trip_date[4:6]
     return render(request,"website/night_out_hotel.html",{
@@ -45,19 +47,32 @@ def show_night_out_arrangement(request):
 
 
 
-def set_hotel_arrengment(hotel_id):
-    all_students = get_all_students()
-    all_rooms = get_all_hotel_rooms(hotel_id)
+def set_hotel_arrengment(hotel_name):
+    all_students =[student for student in Students.objects.all()]
+    all_rooms = get_all_hotel_rooms(hotel_name)
     rooms =[]
+
+
     for room in all_rooms:
         room_students = []
         current_room = all_students
-        for bed in range(room.beds):
-            added_student = current_students.pop()
-            room_students.add(added_student)
-            prev_paired = get_all_paired_students(added_student.id)
-            current_students =[new_student for new_student in current_room if new_students not in prev_paired]
-        rooms.add(room_students)
+        if current_room:
+            for bed in range(int(room.room.number_of_beds)) :
+                if current_room and all_students: 
+                    added_student = current_room.pop()
+                    all_students = [student for student in all_students if student != added_student]
+
+                    room_students.append(added_student)
+                    prev_paired = get_all_paired_students(added_student.id)
+                    print(prev_paired)
+                    current_room =[new_student for new_student in current_room if new_student not in prev_paired]
+            rooms.append({'room_id':room.room.id,'students':room_students})    
+    for room in rooms:
+        hotel =HotelName.objects.filter(name=hotel_name ,room_id =room['room_id']).first()        
+        for student in room['students']:
+
+            NightOut(student=student, hotel=hotel, trip_date= date.today()).save()
+
     # todo:add room_students to db
     return rooms
 
@@ -121,13 +136,28 @@ def  get_all_hotels(request):
         if form.is_valid():
             hotel = form.save()
     all_hotels = HotelName.objects.all()
+    all_hotel_names = set([h.name for h in all_hotels])
+    print(all_hotels)
+    hotels_and_rooms =[]
+    for hotel in all_hotel_names:
+        id =  [h.id for h in all_hotels if h.name ==hotel][0]
+        hotels_and_rooms.append({'name':hotel,'rooms':[h.room.number_of_beds for h in all_hotels if h.name == hotel and h.room]})
+    print(hotels_and_rooms)
     return render (request,"website/hotel/show_hotel.html",{
-        "hotel":all_hotels,
+        "hotel":hotels_and_rooms,
         "hotelForm": HotelForm(),
-        "roomsForm": RoomsForm(),
-    
-
+        "roomsForm": RoomsForm()
     })
+
+def add_room_to_hotel(request):
+    if request.method == 'POST':
+        hotel_name = request.POST.get('hotel_name')
+        rooms = request.POST.get('number_of_beds')
+        room = HotelRooms(number_of_beds = rooms)
+        room.save()
+        hotel = HotelName(name=hotel_name,room=room)
+        hotel.save()
+    return get_all_hotels(request)
 
 def get_all_volunteer_places(volunteer_id):
     all_places = get_all_volunteer_places(volunteer_id)

@@ -1,3 +1,5 @@
+{% load crispy_forms_tags %}
+
 <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
     Add  a New Volunteer Places
    </button>
@@ -15,7 +17,7 @@
          <div class="modal-body">
              <form action="{% url 'website:volunteer' %}" method='post'>
                  {% csrf_token %}
-             {{ volunteersForm }}
+             {{ volunteersForm |crispy }}
              <button type="submit" class="btn btn-dark">Save</button>
  
              </form>

@@ -1,6 +1,36 @@
 {% extends "website/template.html" %}
 {% block body %}
 
+<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+  Add A New night out
+ </button>
+
+ <!-- Modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         
+           <form action="{% url 'website:night_out' %}" method='post'>
+               {% csrf_token %}
+               <input id="hotelid" type="text"  name="hotel_name" value=''><br>
+
+           <button type="submit" class="btn btn-dark">Save</button>
+
+           </form>
+       </div>
+     </div>
+   </div>
+ </div>
+
+
+
 {% for date in dates %}
 <div class="row"> 
 <button type="button" class="btn btn-secondary" data-toggle="collapse"
@@ -16,7 +46,7 @@ data-target="#collapse-{{ date.id}}">{{ date.hotel}} {{ date.date }}</button>
     <tbody>
       {% for obj in date.dates %}
     <tr>
-      <th scope="row"> {{ obj.student.first_name }}  {{ obj.last_name }}</th>
+      <th scope="row"> {{ obj.student.first_name }}  {{ obj.student.last_name }}</th>
       <td> {{ obj.hotel.room.id }}</td>
     </tr>
   {% endfor %}

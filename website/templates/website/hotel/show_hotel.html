@@ -1,7 +1,9 @@
 {% extends "website/template.html" %}
 {% block body %}
 {% include "website/hotel/add_hotel.html" %}
+  
 
+  
 <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
   Delete A Hotel
 </button> </td>
@@ -22,18 +24,52 @@
   <tbody>
     {% for h in hotel %}
   <tr>
-    <th scope="row"> {{ h.name }}</th>
-    <td>    
-    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="room_add"}>
+    <th scope="row"><div>
+      {{ h.name }}
+  {{ h.rooms}}    </div></th>
+    <td>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong{{h.id}}">    
       Add Rooms
      </button>
     
  </td>
+
      </tr>
 
 {% endfor %}
   </tbody>
 </table>
+  <!-- Modal -->
+  {% for h in hotel %}
+
+  <div class="modal fade" id="exampleModalLong{{h.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'website:add_room' %}" method='post'>
+
+          {% csrf_token %}
+          <input id="hotelid" type="hidden"  name="hotel_name" value={{h.name}}><br>
+
+        {{ roomsForm }}
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+
+
 <div class="modal fade" id="room_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -45,11 +81,7 @@
       </div>
       <div class="modal-body">
           <form action="{% url 'website:add_room' %}" method='post'>
-              {% csrf_token %}
-              <input type="text" id="hotelid" name="hotelid" value={{h.id}}><br>
-
-            {{ roomsForm }}
-          <button type="submit" class="btn btn-dark">Save</button>
+     
           
     
         </form>
