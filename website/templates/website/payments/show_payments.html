@@ -45,4 +45,34 @@
   </tbody>
 </table>
 
+<h1 class="point"> Unpaid  Payments </h1>
+<div style="float: left;margin-right:10px"></div>
+
+<table class="table" width="200" height= "50" border="5" >
+
+
+  <thead>
+   <tr>
+    <th scope="col">Company</th>
+    <th scope="col">Amount</th>
+    <th scope="col">Purchased Date</th>
+    <th scope="col">Managed by</th>
+  </tr>
+</thead>
+<tbody>
+  {% for p in payments %}
+<tr>
+  
+  <td scope="row"> {{ p.company }}</td>
+  <td> {{ p.amount }}</td>
+  <td> {{ p.purchased_date }}</td>
+  <td> {{ p.managed_by }}</td>
+</tr>
+
+{% endfor %}
+</tbody>
+
+</table>
+
+
 {% endblock %}

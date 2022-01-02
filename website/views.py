@@ -34,12 +34,14 @@ def show_night_out_arrangement(request):
     nightout = NightOut.objects.all()
     all_dates =[]
     if nightout:
+        print("dates===@@@@@@@===", [night.trip_date for night in nightout])
         dates = set([night.trip_date for night in nightout])
+        print("dates", dates)
         for date in dates:
             all_students = [night for night in nightout if night.trip_date == date]
             all_dates.append({'dates':all_students, 'id':all_students[0].id, 'hotel':all_students[0].hotel.name,
             'date':all_students[0].trip_date})
-        print(all_dates)
+            print(all_dates)
     # nightout = NightOut.objects.filter(trip_date__year = trip_date[:4], trip_date__month = trip_date[4:6]
     return render(request,"website/night_out_hotel.html",{
         "dates":all_dates
@@ -94,7 +96,7 @@ def get_all_paired_students(student_id):
     return set(all_paired_students)
         
 def get_all_hotel_rooms(hotel_name):
-    return HotelName.objects.filter(name =hotel_name)
+    return HotelName.objects.filter(name =hotel_name).exclude(room__isnull=True)
 
 def  get_all_students(request):
     if request.method == 'POST':
@@ -141,7 +143,7 @@ def  get_all_hotels(request):
     hotels_and_rooms =[]
     for hotel in all_hotel_names:
         id =  [h.id for h in all_hotels if h.name ==hotel][0]
-        hotels_and_rooms.append({'name':hotel,'rooms':[h.room.number_of_beds for h in all_hotels if h.name == hotel and h.room]})
+        hotels_and_rooms.append({'id':id,'name':hotel,'rooms':[h.room.number_of_beds for h in all_hotels if h.name == hotel and h.room]})
     print(hotels_and_rooms)
     return render (request,"website/hotel/show_hotel.html",{
         "hotel":hotels_and_rooms,

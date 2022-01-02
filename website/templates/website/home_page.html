@@ -1,69 +1,64 @@
 {% extends "website/template.html" %}
 {% block head %}
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+}
+.bg {
+  /* The image used */
+  background-image: url("static/website/images/background.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
 {% endblock %}
 {% block body %}
 {% load static %}
+<div class="bg">
 
 
+<div class="container h-100">
+  <div class="row align-items-center h-100">
+            <img src="static/website/images/MT_Logo_GOLD.jpg" alt="centered image" class="col" style="width:300px"/>
+  </div>
+</div>
+  <!-- <img src="static/website/images/MT_Logo_GOLD.jpg" alt="centered image" style="  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;" /> -->
 
-<p class="aligncenter">
-  <img src="static/website/images/MT_Logo_GOLD.jpg" alt="centered image" />
-</p>
-<style>
-  .aligncenter {
-      text-align: center;
-  }
-  </style>
+<!-- 
+ <button type="button" class="btn btn-outline-light">Light</button>
 
-   
-
-<button type="button" style="color: honeydew; background-color: black" class= "btn btn- btn-lg btn-block">
+<button type="button" style="color: light; background-color:rgb(102, 2, 105)" class= "btn btn- btn-lg btn-block">
   <a href="{% url 'website:payments' %}"> Payments</a>
 </button>
 
-<button type="button" style="color: honeydew; background-color: black" class= " btn-lg btn-block">
+<button type="button" style="color: honeydew; background-color: rgb(102, 2, 105)" class= " btn-lg btn-block">
   <a href="{% url 'website:hotel' %}">Over Night Trip</a>
 </button>
 
-<button type="button" style="color: honeydew; background-color: black" class= "btn btn- btn-lg btn-block">
+<button type="button" style="color: honeydew; background-color: rgb(102, 2, 105)" class= "btn btn- btn-lg btn-block">
   <a href="{% url 'website:events' %}">Party's/Event's</a>
 </button>
 
-<button type="button" style="color: honeydew; background-color: black" class= "btn btn- btn-lg btn-block">
+<button type="button" style="color: honeydew; background-color: rgb(102, 2, 105)" class= "btn btn- btn-lg btn-block">
   <a href="{% url 'website:volunteer' %}">Volunteer</a>
 </button>
 
 
-<p style="font-family:Courier; color:rgb(230,190,138); font-size: 20px;"></p>
+<p style="font-family:Courier; color:rgb(230,190,138); font-size: 10px;"></p>
 <h1 class="point"> Unpaid  Payments </h1>
-<div style="float: left;margin-right:10px"></div>
+<div style="float: left;margin-right:10px"></div> -->
 
-<table class="table" width="500" height= "150" style="border:5" >
-  <thead>
-   <tr>
-    <th scope="col">Company</th>
-    <th scope="col">Amount</th>
-    <th scope="col">Purchased Date</th>
-    <th scope="col">Managed by</th>
-  </tr>
-</thead>
-<tbody>
-  {% for p in payments %}
-<tr>
-  
-  <td scope="row"> {{ p.company }}</td>
-  <td> {{ p.amount }}</td>
-  <td> {{ p.purchased_date }}</td>
-  <td> {{ p.managed_by }}</td>
-</tr>
-
-{% endfor %}
-</tbody>
-
-</table>
-
-
-
+</div>
 {% endblock %}
 
 

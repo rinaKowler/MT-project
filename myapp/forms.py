@@ -26,18 +26,17 @@ class StudentsForm(ModelForm):
           
 class PaymentsForm(ModelForm):
     
-    paid = forms.BooleanField()
+    paid = forms.BooleanField(initial=True, required=False)
 
     class Meta:
         model = Payment
-        fields = ['amount','company','managed_by','description','if_not_way','paid']
+        fields = ['amount','company','managed_by','description','if_not_way','paid',]
         widgets = {
             'amount': forms.TextInput(),
             'company': forms.TextInput(),
             'managed_by': forms.TextInput(),
             'description': forms.TextInput(),
             'if_not_way': forms.TextInput(),
-          
 
               } 
     
@@ -57,12 +56,12 @@ class EventForm(ModelForm):
     class Meta:
         model = Event
         fields = ['event_name','place','manager','payment']
-        widgets={'date':DateInput}
+        widgets={'date':forms.DateInput()}
 
 class HotelForm(ModelForm):
     class Meta:
         model = HotelName
-        fields = ['name','room']
+        fields = ['name']
         
 class RoomsForm(ModelForm):
     class Meta:

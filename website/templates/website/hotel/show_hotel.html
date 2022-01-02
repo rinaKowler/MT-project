@@ -28,9 +28,10 @@
       {{ h.name }}
   {{ h.rooms}}    </div></th>
     <td>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong{{h.id}}">    
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{h.id}}">    
       Add Rooms
      </button>
+
     
  </td>
 
@@ -41,8 +42,7 @@
 </table>
   <!-- Modal -->
   {% for h in hotel %}
-
-  <div class="modal fade" id="exampleModalLong{{h.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal fade" id="{{h.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
