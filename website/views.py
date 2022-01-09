@@ -4,17 +4,15 @@ from django.db.models.fields import NullBooleanField
 from django.shortcuts import render
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
-from myapp.models import Event, HotelName, HotelRooms, NightOut, Payment, Students, Volunteer,Staff
+from myapp.models import Event, HotelName, HotelRooms, NightOut, Payment, StudentVolunteer, Students, Volunteer,Staff
 from django.db.models import Q
-from myapp.forms import StudentsForm,PaymentsForm,VolunteerForm,HotelForm,RoomsForm,EventForm,StaffForm
+from myapp.forms import StudentsForm,PaymentsForm,VolunteerForm,HotelForm,RoomsForm,EventForm,StaffForm,StudentVForm
 from datetime import date
 
 
 def home_page(request):
-    payment= Payment.objects.filter( paid=False)
     paired = get_all_paired_students(1)
     return render(request, "website/home_page.html", {
-            "payments": payment,
             "paired": paired
 
     })
@@ -116,8 +114,11 @@ def  get_all_payments(request):
         if form.is_valid():
             payment = form.save()
     all_payments = Payment.objects.all()
+    payment= Payment.objects.filter( paid=False)
+
     return render (request,"website/payments/show_payments.html",{
         "payments":all_payments,
+        "payment": payment,
         "paymentsForm": PaymentsForm(),
      } ) 
 
@@ -130,8 +131,35 @@ def valnter_places(request):
     return render (request,"website/volunteer/show_volunteer_places.html",{
         "volunteer":all_volunteer,
          "volunteersForm": VolunteerForm(),
-  
      })
+
+def pick_valnter(request):
+    if request.method=='POST':
+        description = request.POST.get('description')
+        id = request.POST.getlist('id')
+        name = request.POST.get('name')
+        val = Volunteer.objects.filter(id=id[0]).first()
+        val2 = Volunteer.objects.filter(id=id[1]).first()
+
+        StudentVolunteer(name=name,volunteer=val,volunteer2 = val2, describe=description).save()
+    all_volunteer = Volunteer.objects.all()
+    return render (request,"website/volunteer/show_volunteer_places.html",{
+        "volunteer":all_volunteer,
+         "volunteersForm": VolunteerForm(),
+     })
+
+def get_all_picked_valnter(request):   
+    if request.method == 'POST':
+        form = StudentVForm(request.POST)
+        if form.is_valid():
+         studentVolunteer= form.save()
+    all_valnter =StudentVForm.objects.all()
+    print( all_valnter)
+    return get_all_picked_valnter()
+        
+
+
+        
 def  get_all_hotels(request):
     if request.method == 'POST':
         form = HotelForm(request.POST)

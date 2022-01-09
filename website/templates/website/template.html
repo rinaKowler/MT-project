@@ -1,5 +1,6 @@
 
   {% load crispy_forms_tags %}
+  
 
 <!DOCTYPE html>
 <html>
@@ -16,13 +17,33 @@
 
   <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-   {% block head %}
-  {% endblock %}
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+    }
+    .bg {
+      /* The image used */
+      background-image: url("static/website/images/2.jpg");
+    
+      /* Full height */
+      height: 100%;
+    
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    </style>
+  {% block head %}
+
+{% endblock %}
 </head>
 
 <body>
   {% include "website/navbar.html" %}
- 
+  <div class="bg">
+
   {% block body %}
   {% endblock %}
   {% block script %}

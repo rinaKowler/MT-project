@@ -18,5 +18,6 @@ def Hotel_page (request):
 def logout_view(request):
     logout(request)
     return redirect('manager:login_view')
+    
 
 

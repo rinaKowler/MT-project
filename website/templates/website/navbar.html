@@ -1,9 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar navbar-light bg-transparent">
+<nav class="navbar navbar-expand-lg navbar navbar-light" style=" background-color: #ddac7f;">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
+      
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'website:events' %}">Events</a>
+          <a class="nav-link" href="{% url 'website:home_page' %}">Home Page</a>
         </li>
+        
+  
         <li class="nav-item">
             <a class="nav-link" href="{% url 'website:payments' %}">Payments</a>
         </li>
@@ -16,13 +19,12 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'website:night_out' %}">Night Out</a>
        </li>
-       <li class="nav-item">
-         <a class="nav-link" href="{% url 'website:staff' %}">Staff</a>
-       </li>
+      
+     
        <li class="nav-item">
         <a class="nav-link" href="{% url 'website:hotel' %}">Hotel</a>
       </li>
-      
+     
       </ul>
     </div>
   </nav>

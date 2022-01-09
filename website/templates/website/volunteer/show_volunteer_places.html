@@ -11,10 +11,14 @@
   Edit a Volunteer Places
  </button> </td>
 
+ <form action="{% url 'website:pick_volunteer' %}" method='post'>
+  {% csrf_token %}
+
 
 <table class="table">
     <thead>
       <tr>
+        <th></th>
         <th scope="col">category</th>
         <th scope="col">name</th>
         <th scope="col">address</th>
@@ -24,6 +28,12 @@
     <tbody>
       {% for v in volunteer %}
     <tr>
+      <td>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="id" value="{{v.id}}" id="{{v.id}}">
+        </div>
+      </td>
       <th scope="row"> {{ v.category }}</th>
       <td> {{ v.volunteer_place_name }}</td>
       <td> {{ v.address }}</td> 
@@ -32,6 +42,10 @@
   {% endfor %}
     </tbody>
 </table>
+<input class="form-control" type="text" name='name' placeholder="name">
+<input class="form-control" type="text" name='description' placeholder="Default input">
+ <button type="submit" class="btn btn-dark">Save </button>
+</form>
 
 {% endblock %}
 

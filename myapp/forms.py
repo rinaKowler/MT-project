@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Staff, Students ,Payment, Volunteer,Event,HotelName,HotelRooms,Staff
+from .models import Staff, Students ,Payment, Volunteer,Event,HotelName,HotelRooms,Staff,StudentVolunteer
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Column, Row, HTML
 
@@ -73,4 +73,10 @@ class StaffForm(ModelForm):
         model = Staff
         fields = ['first_name','last_name','title','email']    
 
-    
+     
+class StudentVForm(ModelForm):
+    class Meta:
+        model = StudentVolunteer
+        fields = ['name','describe']      
+
+
