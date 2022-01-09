@@ -8,6 +8,7 @@ from myapp.models import Event, HotelName, HotelRooms, NightOut, Payment, Studen
 from django.db.models import Q
 from myapp.forms import StudentsForm,PaymentsForm,VolunteerForm,HotelForm,RoomsForm,EventForm,StaffForm,StudentVForm
 from datetime import date
+from random import shuffle
 
 
 def home_page(request):
@@ -49,6 +50,7 @@ def show_night_out_arrangement(request):
 
 def set_hotel_arrengment(hotel_name):
     all_students =[student for student in Students.objects.all()]
+    shuffle(all_students)
     all_rooms = get_all_hotel_rooms(hotel_name)
     rooms =[]
 
@@ -148,16 +150,18 @@ def pick_valnter(request):
          "volunteersForm": VolunteerForm(),
      })
 
-def get_all_picked_valnter(request):   
-    if request.method == 'POST':
-        form = StudentVForm(request.POST)
-        if form.is_valid():
-         studentVolunteer= form.save()
-    all_valnter =StudentVForm.objects.all()
-    print( all_valnter)
-    return get_all_picked_valnter()
-        
-
+def show_picked_volunteer(request):
+    all = StudentVolunteer.objects.all()
+    all_places1 = [x.volunteer2 for x in all]
+    all_places2 = [x.volunteer for x in all]
+    all_places = set([*all_places1,*all_places2])
+    list_places =[]
+    for place in all_places:
+        print([all[0].volunteer])
+        all_students = [x.name for x in all if x.volunteer.volunteer_place_name == place.volunteer_place_name  or x.volunteer2.volunteer_place_name == place.volunteer_place_name]
+        list_places.append({'place':place,'students':all_students})
+    return render (request,"website/show_picked_volunteer.html",{
+        "volunteer":list_places })
 
         
 def  get_all_hotels(request):

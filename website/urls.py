@@ -16,7 +16,8 @@ urlpatterns = [
     path("events",views.get_all_events , name="events"),
     path("rooms",views.get_all_rooms , name="rooms"),
     path("add_room",views.add_room_to_hotel, name="add_room"),
-    path("pick_valnter", views.get_all_picked_valnter, name="pick_volunteer"),
+    path("pick_valnter", views.pick_valnter, name="pick_volunteer"),
+    path("show_picked_volunteer", views.show_picked_volunteer, name="show_picked_volunteer"),
    # path("get_all_payments/<str:amount",views.show_all_pament_payment, name = "payment"),
    # path("get_all_students/<str: first_name", views.get_all_students, name="get_all_students"),
 ]

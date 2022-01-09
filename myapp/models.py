@@ -53,7 +53,7 @@ class Payment (models.Model):
     description=models.TextField(max_length=400, null=True, blank=True)
     amount=models.IntegerField( null=True, blank=True)
     paid= models.BooleanField(default=False)
-    if_not_way=models.TextField(default='c',max_length=400, null=True, blank=True)
+    if_not_way=models.TextField(max_length=400, null=True, blank=True)
     payment_date=models.DateTimeField(auto_now=True, null=True, blank=True)
     
     def _str_ (self):

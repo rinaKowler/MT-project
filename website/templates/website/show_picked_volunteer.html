@@ -1,0 +1,37 @@
+{% extends "website/template.html" %}
+{% block body %}
+
+{% for v in volunteer %}
+<h1>
+    {{v.place.volunteer_place_name}}
+</h1>
+{% for s in v.students %}
+<p> {{s}}, </p>
+{% endfor %}
+{% endfor %}
+
+
+<!-- <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Volunteer Place/th>
+        <th scope="col">Name</th>
+        <th scope="col">Maneged By</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for e in event %}
+    <tr>
+      <th scope="row"> {{ e.event_name }}</th>
+      <td> {{ e.place }}</td>
+      <td> {{ e.manager }}</td>
+      <td> {{ e.event_date }}</td>
+    </tr>
+  {% endfor %}
+    </tbody>
+</table> -->
+
+{% endblock %}
+
+
