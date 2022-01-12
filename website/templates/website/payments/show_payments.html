@@ -13,11 +13,12 @@
   Edit A Payment
 
  </button> </td>
+ 
 
  <h1 class="point"> All  Payments </h1>
-<div style="float: left;margin-right:10px"></div>
+ <div style="float: left;margin-right:10px"></div>
 
-<table class="table" width="200" height= "50" border="5" >
+ <table class="table" width="200" height= "50" border="5" >
 
 <table class="table">
   <thead>
@@ -36,7 +37,7 @@
   <tbody>
     {% for payment in payments %}
   <tr>
-    <th scope="row"> {{ payment.purchased_date }}</th>
+    <td scope="row"> {{ payment.purchased_date }}</td>
     <td> {{ payment.company }}</td>
     <td> {{ payment.managed_by }}</td>
     <td> {{ payment.description }}</td>

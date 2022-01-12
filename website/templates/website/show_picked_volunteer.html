@@ -2,9 +2,9 @@
 {% block body %}
 
 {% for v in volunteer %}
-<h1>
+<h2>
     {{v.place.volunteer_place_name}}
-</h1>
+</h2>
 {% for s in v.students %}
 <p> {{s}}, </p>
 {% endfor %}
