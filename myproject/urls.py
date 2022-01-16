@@ -19,5 +19,8 @@ from website.views import home_page
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("website.urls")),
+    path('accounts/', include('django.contrib.auth.urls')),
+
 
 ]
+

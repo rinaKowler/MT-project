@@ -13,11 +13,10 @@ class ExampleForm(forms.Form):
    
 
 
-
 class StudentsForm(ModelForm):
     class Meta:
         model = Students
-        fields = {'first_name','last_name','talents_and_level'}
+        fields = {'first_name','last_name','email'}
         widgets = {
             'first_name': forms.TextInput(),  
             'last_name': forms.TextInput(),

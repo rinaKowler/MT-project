@@ -1,0 +1,33 @@
+{% extends "website/template.html" %}
+{% block body %}
+
+
+<h1> Notify Students</h1>
+<forom >
+
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          Email
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+        <label class="form-check-label" for="flexCheckChecked">
+          WhatsUp
+        </label>
+      </div>
+    
+      <div class="col-7">
+        <div class="form-group green-border-focus">
+            <label for="exampleFormControlTextarea5">Message</label>
+            <textarea class="form-control" id="exampleFormControlTextarea5" rows="3"></textarea>
+          </div>
+      </div>      <button type="submit" class="btn btn-primary my-1">Submit</button>
+
+      </forom>
+</forom>
+
+{% endblock %}
+
+

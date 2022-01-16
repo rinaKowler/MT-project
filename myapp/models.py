@@ -4,6 +4,8 @@ from django.utils import timezone
 from django import forms
 from .models import *
 
+
+
 from django.db.models.fields.related import ForeignKey
 ## from myapp.views import payment
 
@@ -30,7 +32,9 @@ class NightOut(models.Model):
 class Students(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
-    talents_and_level =models.CharField(max_length=200,blank=True)
+    email=models.EmailField(null=True)
+    phone =models.IntegerField(null=True)
+
     def _str_ (self):
          return self.first_name +' '+ self.last_name
 

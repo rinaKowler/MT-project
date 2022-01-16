@@ -9,8 +9,9 @@ from django.db.models import Q
 from myapp.forms import StudentsForm,PaymentsForm,VolunteerForm,HotelForm,RoomsForm,EventForm,StaffForm,StudentVForm
 from datetime import date
 from random import shuffle
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def home_page(request):
     paired = get_all_paired_students(1)
     return render(request, "website/home_page.html", {
@@ -229,3 +230,8 @@ def  get_all_staff(request):
         "staff":all_staff,
         "staffForm": StaffForm(),
     })
+
+
+def notify(request):
+    return render(request,"website/notify.html")
+
