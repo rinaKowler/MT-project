@@ -1,38 +1,130 @@
 {% extends "website/template.html" %}
 {% block body %}
 {% include "website/events/add_events.html" %}
+{% load crispy_forms_tags %}
 
-
-<td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
-  Delet An Event
- </button> </td>
 
  <td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
   Edit An Event
  </button> </td>
 
 
-<table class="table">
+{% for e in event %}
+<div class="row"> 
+<button type="button" class="btn btn-dark" data-toggle="collapse"
+data-target="#collapse-{{e.event.id}}">{{ e.event.event_name }} </button>
+<div id="collapse-{{ e.event.id}}" class="collapse">
+  <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#{{e.event.id}}">    
+    Add A Payment
+   </button>
+   <form action="{% url 'website:download_doc' %}" method='post'>
+
+    {% csrf_token %}
+    <input id="hotelid" type="hidden"  name="id" value={{e.event.id}}><br>
+  <button type="submit" class="btn btn-dark">Download</button>
+  </form>
+  <table class="table">
     <thead>
       <tr>
-        <th scope="col">Event Name</th>
-        <th scope="col">Place</th>
-        <th scope="col">Maneged By</th>
-        <th scope="col">Date</th>
+        <th scope="col">company</th>
+        <th scope="col">purchased_date</th>
+        <th scope="col">managed_by</th>
+        <th scope="col">description</th>
+        <th scope="col">amount</th>
+        <th scope="col">paid</th>
+        <th scope="col">if_not_way</th>
+        <th scope="col">payment_date</th>
       </tr>
     </thead>
     <tbody>
-      {% for e in event %}
+      {% for p in e.payments %}
     <tr>
-      <th scope="row"> {{ e.event_name }}</th>
-      <td> {{ e.place }}</td>
-      <td> {{ e.manager }}</td>
-      <td> {{ e.event_date }}</td>
+      <td> {{ p.company }}</td>
+      <td> {{ p.purchased_date }}</td>
+      <td> {{ p.managed_by }}</td>
+      <td> {{ p.description }}</td>
+      <td> {{ p.amount }}</td>
+      <td> {{ p.paid }}</td>
+      <td> {{ p.if_not_way }}</td>
+      <td> {{ p.payment_date }}</td>
     </tr>
   {% endfor %}
     </tbody>
 </table>
+</div>
+</div>
+{% endfor %}
 
+
+{% for e in event %}
+
+<div class="modal fade" id="{{e.event.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Payment </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'website:add_payment_to_event' %}" method='post'>
+
+        {% csrf_token %}
+        <input id="hotelid" type="hidden"  name="event_id" value={{e.event.id}}><br>
+            {{paymentForm|crispy}}
+     
+      <button type="submit" class="btn btn-dark">Save changes</button>
+      </form>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="Download{{e.event.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Payment </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'website:download_doc' %}" method='post'>
+
+        {% csrf_token %}
+        <input id="hotelid" type="hidden"  name="id" value={{e.event.id}}><br>
+      <button type="submit" class="btn btn-dark">Download</button>
+      </form>
+      </div>
+    
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<div class="modal fade" id="room_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Rooms</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form action="{% url 'website:add_room' %}" method='post'>
+     
+          
+    
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 

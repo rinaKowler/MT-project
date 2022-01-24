@@ -34,9 +34,7 @@ def show_night_out_arrangement(request):
     nightout = NightOut.objects.all()
     all_dates =[]
     if nightout:
-        print("dates===@@@@@@@===", [night.trip_date for night in nightout])
         dates = set([night.trip_date for night in nightout])
-        print("dates", dates)
         for date in dates:
             all_students = [night for night in nightout if night.trip_date == date]
             all_dates.append({'dates':all_students, 'id':all_students[0].id, 'hotel':all_students[0].hotel.name,
@@ -215,11 +213,48 @@ def  get_all_events(request):
         if form.is_valid():
             event = form.save()
     all_events = Event.objects.all()
+    all_events_names = set([h.event_name for h in all_events])
+    events_and_payments = []
+    for event in all_events_names:
+        payments =  [h.payment for h in all_events if h.event_name ==event]
+        event = [h for h in all_events if h.event_name ==event][0]
+        events_and_payments.append( {'event':event,'payments':payments})
     return render (request,"website/events/show_events.html",{
-        "event":all_events,
+        "event":events_and_payments,
         "eventForm": EventForm(),
+        "paymentForm":PaymentsForm(),
     })
-   
+
+def add_payment_to_event(request):
+    if request.method == 'POST':
+        print(request.POST)
+        event_id = request.POST.get('event_id')
+        # payment = PaymentsForm(request.POST)
+        # if payment.is_valid():
+        #     new_payment = payment.save()
+        # print(payment)
+        new_payment = Payment(
+            company=request.POST.get('company'),
+            purchased_date=request.POST.get('purchased_date'),
+            managed_by=request.POST.get('managed_by'),
+            description=request.POST.get('description'),
+            amount=request.POST.get('amount'),
+            paid=True if request.POST.get('paid') == 'on' else False,
+            if_not_way=request.POST.get('if_not_way'),
+            payment_date=request.POST.get('payment_date')
+            )
+        new_payment.save()
+        event = Event.objects.filter(id=event_id).first()
+        new_event = Event( event_name=event.event_name,
+          
+            event_date=event.event_date,
+            payment = new_payment)
+        event.payment = new_payment
+        new_event.save()
+    return get_all_events(request)
+
+
+
 def  get_all_staff(request):
     if request.method == 'POST':
         form = StaffForm(request.POST)
@@ -235,3 +270,34 @@ def  get_all_staff(request):
 def notify(request):
     return render(request,"website/notify.html")
 
+def download_doc(request):
+    id = request.POST.get('id')
+    name = Event.objects.filter(id=id).first()
+    all_events = Event.objects.filter(event_name=name.event_name).all()
+    # for event in all_events_names:
+    #     payments =  [h.payment for h in all_events if h.event_name ==event]
+    #     event = [h for h in all_events if h.event_name ==event][0]
+    #     events_and_payments.append( {'event':event,'payments':payments})
+    file_name = 'students.txt'
+    lines = []
+    lines.append('{0}, {1}, {2}'.format("company","paid","amount"))
+    for p in all_events:
+        lines.append('{0}, {1}, {2}'.format(p.payment.company,p.payment.paid,p.payment.amount))
+    lines.append('')
+    sumPayed = 0
+    sumUnpaid= 0
+    for event in all_events:
+        if event.payment.paid:
+            sumPayed =sumPayed+event.payment.amount
+        else:
+            sumUnpaid = sumUnpaid + event.payment.amount
+    lines.append(f"""sumPayed:{sumPayed} """)
+    lines.append(f"""sumUnpaid:{sumUnpaid} """)
+    lines.append(f"""Total:{sumUnpaid +sumPayed } """)
+    response_content = '\n'.join(lines)
+    response = HttpResponse(response_content, content_type="text/plain,charset=utf8")
+    response['Content-Disposition'] = 'attachment; filename={0}'.format(file_name)
+    return response
+
+
+    

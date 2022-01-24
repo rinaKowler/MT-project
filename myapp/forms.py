@@ -29,12 +29,12 @@ class PaymentsForm(ModelForm):
 
     class Meta:
         model = Payment
-        fields = ['amount','company','managed_by','description','if_not_way','paid',]
+        fields = ['company','managed_by','description','amount','paid','if_not_way',]
         widgets = {
-            'amount': forms.TextInput(),
             'company': forms.TextInput(),
             'managed_by': forms.TextInput(),
             'description': forms.TextInput(),
+            'amount': forms.TextInput(),
             'if_not_way': forms.TextInput(),
 
               } 
@@ -54,7 +54,7 @@ class VolunteerForm(ModelForm):
 class EventForm(ModelForm):
     class Meta:
         model = Event
-        fields = ['event_name','place','manager','payment']
+        fields = ['event_name','place','manager',]
         widgets={'date':forms.DateInput()}
 
 class HotelForm(ModelForm):

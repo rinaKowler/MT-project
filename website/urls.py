@@ -19,9 +19,8 @@ urlpatterns = [
     path("pick_valnter", views.pick_valnter, name="pick_volunteer"),
     path("show_picked_volunteer", views.show_picked_volunteer, name="show_picked_volunteer"),
     path("notify", views.notify, name="notify"),
-    
-
-    
+    path("add_payment_to_event", views.add_payment_to_event, name="add_payment_to_event"),
+    path("download_doc", views.download_doc, name="download_doc"),
    # path("get_all_payments/<str:amount",views.show_all_pament_payment, name = "payment"),
    # path("get_all_students/<str: first_name", views.get_all_students, name="get_all_students"),
 ]

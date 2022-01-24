@@ -28,27 +28,29 @@
     
       /* Center and scale the image nicely */
       background-position: center;
-      background-repeat: no-repeat;
+      background-repeat: repeat;
       background-size: cover;
     }
+    
     </style>
 </head>
-
+<div class="container ">
+  <div class="row align-items-center ">
+            <img src="../../../static/website/images/logo clear.jpg"  alt="centered image"  class="col-sm" style="width:100px"/>
+  </div>
+</div>
 <body>
   <div class="bg">
-
-  
-    <div class= row align-items-center">
-      <div class="col">
-        <div class="d-flex justify-content-center">
-        <h1>MIDRESHET TEHILLAH  </h1>
-        </div>
-      </div>
-    </div>
       <div class="row">
               <div class="col">
         <div class="d-flex justify-content-center">
   <h1>LOG IN  </h1>
+</div>
+</div>
+</div>
+<div class="row">
+        <div class="col">
+  <div class="d-flex justify-content-center">
   {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
   {% endif %}
@@ -74,9 +76,21 @@
         <td>{{ form.password }}</td>
       </tr>
     </table>
+  </div>
+</div>
+</div>
+<div class="row">
+        <div class="col">
+  <div class="d-flex justify-content-center">
     <input type="submit" value="login" />
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
+</div>
+</div>
+</div>
+<div class="row">
+        <div class="col">
+  <div class="d-flex justify-content-center">
 
   <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
       </div>
