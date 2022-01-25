@@ -76,6 +76,8 @@ class Volunteer(models.Model):
     address=models.CharField(max_length=200)
     describe= models.TextField(max_length=500)
 
+
+
 class StudentVolunteer(models.Model):
     name=models.CharField(max_length=50)
     volunteer = models.ForeignKey(
@@ -84,4 +86,16 @@ class StudentVolunteer(models.Model):
         'Volunteer', related_name='volunteer2', on_delete=models.RESTRICT, null=True, blank=True)
     describe=models.CharField(max_length=200)
 
+class Lecture(models.Model):
+    subject=models.CharField(max_length=50)
+    teacher=models.CharField(max_length=50)
+    day=models.CharField(max_length=50)
+    time=models.IntegerField(null=True, blank=True)
 
+class StudentLecture(models.Model):
+    name=models.CharField(max_length=50)
+    lecture1 = models.ForeignKey(
+        'lecture',related_name='lecture1', on_delete=models.RESTRICT, null=True, blank=True)
+    lecture2 = models.ForeignKey(
+        'lecture', related_name='lecture2', on_delete=models.RESTRICT, null=True, blank=True)
+    describe=models.CharField(max_length=200)

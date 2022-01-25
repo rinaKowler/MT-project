@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Staff, Students ,Payment, Volunteer,Event,HotelName,HotelRooms,Staff,StudentVolunteer
+from .models import Staff, Students ,Payment, Volunteer,Event,HotelName,HotelRooms,Staff,StudentVolunteer,StudentLecture,Lecture
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Column, Row, HTML
 
@@ -50,6 +50,19 @@ class VolunteerForm(ModelForm):
             'describe': forms.TextInput(),
         
               } 
+
+                  
+class LectureForm(ModelForm):
+    class Meta:
+        model = Lecture
+        fields = ['subject','teacher','day','time',]
+        widgets = {
+            'subject': forms.TextInput(),
+            'teacher': forms.TextInput(),
+            'day': forms.TextInput(),
+            'time': forms.TextInput(),
+        
+              } 
         
 class EventForm(ModelForm):
     class Meta:
@@ -79,3 +92,8 @@ class StudentVForm(ModelForm):
         fields = ['name','describe']      
 
 
+     
+class StudentLecture(ModelForm):
+    class Meta:
+        model = StudentLecture
+        fields = ['name']      

@@ -4,12 +4,14 @@ from django.db.models.fields import NullBooleanField
 from django.shortcuts import render
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
-from myapp.models import Event, HotelName, HotelRooms, NightOut, Payment, StudentVolunteer, Students, Volunteer,Staff
+from myapp.models import Event, HotelName, HotelRooms, NightOut, Payment, StudentVolunteer, Students, Volunteer,Staff,Lecture,StudentLecture
 from django.db.models import Q
-from myapp.forms import StudentsForm,PaymentsForm,VolunteerForm,HotelForm,RoomsForm,EventForm,StaffForm,StudentVForm
+from myapp.forms import StudentsForm,PaymentsForm,VolunteerForm,HotelForm,RoomsForm,EventForm,StaffForm,StudentVForm,LectureForm
 from datetime import date
 from random import shuffle
 from django.contrib.auth.decorators import login_required
+import xlwt
+
 
 @login_required
 def home_page(request):
@@ -299,5 +301,47 @@ def download_doc(request):
     response['Content-Disposition'] = 'attachment; filename={0}'.format(file_name)
     return response
 
+
+ 
+def lecture_places(request):
+    if request.method == 'POST':
+         form = LectureForm(request.POST)
+         if form.is_valid():
+             lecture = form.save()
+    all_lecture = Lecture.objects.all()
+    return render (request,"website/lecture/show_lecture.html",{
+        "lecture":all_lecture,
+         "lectureForm": LectureForm(),
+     })
+   
+
+
+def pick_Lecture(request):
+    if request.method=='POST':
+        description = request.POST.get('subject')
+        id = request.POST.getlist('id')
+        teacher = request.POST.get('teacher')
+        lecturel = Lecture.objects.filter(id=id[0]).first()
+        lecture2 = Lecture.objects.filter(id=id[1]).first()
+
+        StudentLecture(subject=subject,lecture=lecture1,lecture2 = lecture2, describe=description).save()
+    all_lecture = Lecture.objects.all()
+    return render (request,"website/lecture/show_lecture.html",{
+        "lecture":all_lecture,
+        "lectureForm":LectureForm(),
+     })
+
+def show_picked_lecture(request):
+    all = StudentLecture.objects.all()
+    all_lecture1 = [x.lecture2 for x in all]
+    all_lecture2 = [x.lecture for x in all]
+    all_places = set([*all_lecture1,*all_lecture2])
+    list_lecture =[]
+    for lecture in all_lecture:
+        print([all[0].lecture])
+        all_students = [x.name for x in all if x.lecture.lecture == place.volunteer_place_name  or x.volunteer2.volunteer_place_name == place.volunteer_place_name]
+        list_places.append({'place':place,'students':all_students})
+    return render (request,"website/show_picked_lecture.html",{
+        "lecture":list_places })
 
     

@@ -1,0 +1,29 @@
+{% load crispy_forms_tags %}
+
+<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+    Add  a New Lecture 
+   </button>
+   
+   <!-- Modal -->
+   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <div class="modal-body">
+             <form action="{% url 'website:pick_Lecture' %}" method='post'>
+                 {% csrf_token %}
+             {{ lectureForm |crispy }}
+             <button type="submit" class="btn btn-dark">Save</button>
+ 
+             </form>
+         </div>
+       </div>
+     </div>
+   </div>
+ 
+ 
