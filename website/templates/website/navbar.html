@@ -1,46 +1,64 @@
 <nav class="navbar navbar-expand-lg navbar navbar-light" style=" background-color: #ddac7f;">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-      
+
+    <a class="navbar-brand me-2"img src="static/website/images/logo clear.jpg">
+      <img
+        src="static/website/images/logo clear.jpg"
+        height="50"
+  
+        style="margin-top: -15px;"
+      />
+    </a>
+
+
+  
+
+      <div class="d-flex align-items-center">
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'website:home_page' %}">Home Page</a>
+          <a class="nav-link" href="{% url 'website:home_page' %}"style="font-weight: bold;">HOME PAGE</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'website:events' %}">Event </a>
+          <a class="nav-link" href="{% url 'website:pick_Lecture' %}"style="font-weight: bold;">CLASSES </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'website:hotel' %}">Hotel</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'website:night_out' %}">Night Out</a>
-     </li>
+    
         
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'website:payments' %}">Payments</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'website:volunteer' %}">Volunteer Places </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'website:students' %}">Students</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'website:show_picked_volunteer' %}">Picke Volunteer</a>
+          <a class="nav-link" href="{% url 'website:events' %}"style="font-weight: bold;">EVENT </a>
       </li>
-
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'website:show_picked_volunteer' %}"> Volunteer</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'website:pick_Lecture' %}">Lecture</a>
-  </li>
-
+        <a class="nav-link" href="{% url 'website:hotel' %}"style="font-weight: bold;">NIGHT OUT</a>
+      </li>
     
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'website:notify' %}">Notify Students</a>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'website:payments' %}"style="font-weight: bold;">PAYMENTS</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'website:volunteer' %}"style="font-weight: bold;">VOLUNTEER PLACES</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'website:students' %}"style="font-weight: bold;">STUDENTS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'website:show_picked_volunteer' %}"style="font-weight: bold;">Picke Volunteer</a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link"  href="{% url 'website:notify' %}"style="font-weight: bold;">NOTIFY STUDENTS</a>
+      </li>
+        <a
+          
+        ></a>
+      </div>
+    </div>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+      
+ 
      
       </ul>
     </div>

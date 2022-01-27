@@ -321,10 +321,10 @@ def pick_Lecture(request):
         description = request.POST.get('subject')
         id = request.POST.getlist('id')
         teacher = request.POST.get('teacher')
-        lecturel = Lecture.objects.filter(id=id[0]).first()
+        lecture = Lecture.objects.filter(id=id[0]).first()
         lecture2 = Lecture.objects.filter(id=id[1]).first()
 
-        StudentLecture(subject=subject,lecture=lecture1,lecture2 = lecture2, describe=description).save()
+        StudentLecture(teacher=teacher,lecture=lecture,lecture2 = lecture2, describe=description).save()
     all_lecture = Lecture.objects.all()
     return render (request,"website/lecture/show_lecture.html",{
         "lecture":all_lecture,
