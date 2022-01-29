@@ -90,7 +90,7 @@ class Lecture(models.Model):
     subject=models.CharField(max_length=50)
     teacher=models.CharField(max_length=50)
     day=models.CharField(max_length=50)
-    time=models.IntegerField(null=True, blank=True)
+    time=models.CharField(max_length=50,null=True, blank=True)
 
 class StudentLecture(models.Model):
     name=models.CharField(max_length=50)

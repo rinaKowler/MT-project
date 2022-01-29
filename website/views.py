@@ -1,3 +1,4 @@
+from calendar import TUESDAY, WEDNESDAY
 from os import name
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.db.models.fields import NullBooleanField
@@ -307,33 +308,36 @@ def lecture_places(request):
     if request.method == 'POST':
          form = LectureForm(request.POST)
          if form.is_valid():
-             lecture = form.save()
-    all_lecture = Lecture.objects.all()
-    return render (request,"website/lecture/show_lecture.html",{
-        "lecture":all_lecture,
-         "lectureForm": LectureForm(),
-     })
-   
-
+             form.save()
+    return pick_Lecture(request)
 
 def pick_Lecture(request):
     if request.method=='POST':
-        description = request.POST.get('subject')
+        name = request.POST.get('name')
         id = request.POST.getlist('id')
-        teacher = request.POST.get('teacher')
         lecture = Lecture.objects.filter(id=id[0]).first()
         lecture2 = Lecture.objects.filter(id=id[1]).first()
 
-        StudentLecture(teacher=teacher,lecture=lecture,lecture2 = lecture2, describe=description).save()
+        StudentLecture(name=name,lecture1=lecture,lecture2 = lecture2).save()
     all_lecture = Lecture.objects.all()
+    sunday = [x for x in all_lecture if x.day == "sunday"]
+    monday = [x for x in all_lecture if x.day == "monday"]
+    tusday = [x for x in all_lecture if x.day == "tusday"]
+    wendsday = [x for x in all_lecture if x.day == "wendsday"]
+    thurdsay = [x for x in all_lecture if x.day == "thurdsay"]
+    all = {'sunday':sunday,'monday':monday,'tusday':tusday,'wendsday':wendsday,'thurdsay':thurdsay }
+    for a in all:
+        print(all[a])
+        print("----")
+    print(all)
     return render (request,"website/lecture/show_lecture.html",{
-        "lecture":all_lecture,
+        "sunday":sunday,"monday":monday,'tusday':tusday,'wendsday':wendsday,'thurdsay':thurdsay,
         "lectureForm":LectureForm(),
      })
 
 def show_picked_lecture(request):
     all = StudentLecture.objects.all()
-    all_lecture1 = [x.lecture2 for x in all]
+    all_lecture1 = [x.lecture for x in all]
     all_lecture2 = [x.lecture for x in all]
     all_places = set([*all_lecture1,*all_lecture2])
     list_lecture =[]

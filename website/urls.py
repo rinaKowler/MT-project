@@ -21,6 +21,7 @@ urlpatterns = [
     path("notify", views.notify, name="notify"),
     path("add_payment_to_event", views.add_payment_to_event, name="add_payment_to_event"),
     path("download_doc", views.download_doc, name="download_doc"),
+       path("add_lecture", views.lecture_places, name="add_lecture"),
     path("pick_Lecture", views.pick_Lecture, name="pick_Lecture"),
     path("show_picked_lecture", views.show_picked_lecture, name="show_picked_lecture"),
    # path("get_all_payments/<str:amount",views.show_all_pament_payment, name = "payment"),

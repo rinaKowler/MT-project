@@ -4,45 +4,123 @@
 {% include "website/lecture/add_lecture.html" %}
 
 
- <td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
-  Edit a class 
- </button> </td>
+<td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+    Edit a class
+  </button> </td>
 
- <form action="{% url 'website:pick_Lecture' %}" method='post'>
+<form action="{% url 'website:pick_Lecture' %}" method='post'>
   {% csrf_token %}
 
 
-<table class="table">
+  <table class="table">
     <thead>
       <tr>
         <th></th>
         <th scope="col">Subject</th>
         <th scope="col">Teacher</th>
-        <th scope="col">Day</th>
         <th scope="col">Time</th>
       </tr>
     </thead>
     <tbody>
-      {% for l in Lecture %}
-    <tr>
-      <td>
+      <tr>
+        <td scope="row"style="font-weight: bold;"> SUNDAY</td>
+       </tr>
+      {% for l in sunday %}
+     
+      <tr>
+        <td>
 
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="id" value="{{c.id}}" id="{{c.id}}">
-        </div>
-      </td>
-      <td scope="row"> {{ l.subject }}</td>
-      <td> {{ l.teacher }}</td>
-      <td> {{ l.day }}</td> 
-      <td> {{ l.time }}</td>
-    </tr>
-  {% endfor %}
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="id" value="{{l.id}}" id="{{l.id}}">
+          </div>
+        </td>
+        <td scope="row"> {{ l.subject }}</td>
+        <td> {{ l.teacher }}</td>
+        <td> {{ l.time }}</td>
+      </tr>
+     
+      {% endfor %}
+
+
+
+      <tr>
+        <td scope="row"style="font-weight: bold;"> MONDAY</td>
+       </tr>
+      {% for l in monday %}
+     
+      <tr>
+        <td>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="id" value="{{l.id}}" id="{{l.id}}">
+          </div>
+        </td>
+        <td scope="row"> {{ l.subject }}</td>
+        <td> {{ l.teacher }}</td>
+        <td> {{ l.time }}</td>
+      </tr>
+      {% endfor %}
+
+
+      <tr>
+        <td scope="row"style="font-weight: bold;"> TUSDAY</td>
+       </tr>
+      {% for l in tusday %}
+     
+      <tr>
+        <td>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="id" value="{{l.id}}" id="{{l.id}}">
+          </div>
+        </td>
+        <td scope="row"> {{ l.subject }}</td>
+        <td> {{ l.teacher }}</td>
+        <td> {{ l.time }}</td>
+      </tr>
+      {% endfor %}
+
+
+      <tr>
+        <td scope="row"style="font-weight: bold;"> WENDSDAY</td>
+       </tr>
+      {% for l in wendsday %}
+     
+      <tr>
+        <td>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="id" value="{{l.id}}" id="{{l.id}}">
+          </div>
+        </td>
+        <td scope="row"> {{ l.subject }}</td>
+        <td> {{ l.teacher }}</td>
+        <td> {{ l.time }}</td>
+      </tr>
+      {% endfor %}
+
+
+      <tr>
+        <td scope="row"style="font-weight: bold;"> THURSDAY</td>
+       </tr>
+      {% for l in thurdsay %}
+     
+      <tr>
+        <td>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="id" value="{{l.id}}" id="{{l.id}}">
+          </div>
+        </td>
+        <td scope="row"> {{ l.subject }}</td>
+        <td> {{ l.teacher }}</td>
+        <td> {{ l.time }}</td>
+      </tr>
+      {% endfor %}
     </tbody>
-</table>
-<input class="form-control" type="text" name='name' placeholder="name">
-<input class="form-control" type="text" name='description' placeholder="Explain">
- <button type="submit" class="btn btn-dark">Save </button>
+  </table>
+  <input class="form-control" type="text" name='name' placeholder="name">
+  <button type="submit" class="btn btn-dark">Save </button>
 </form>
 
 {% endblock %}
-

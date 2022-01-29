@@ -2,6 +2,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
 
+
     <a class="navbar-brand me-2"img src="static/website/images/logo clear.jpg">
       <img
         src="static/website/images/logo clear.jpg"
@@ -10,6 +11,7 @@
         style="margin-top: -15px;"
       />
     </a>
+    
 
 
   
@@ -20,45 +22,60 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'website:pick_Lecture' %}"style="font-weight: bold;">CLASSES </a>
+          <a class="nav-link" href="{% url 'website:pick_Lecture' %}" >CLASSES </a>
       </li>
     
         
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'website:events' %}"style="font-weight: bold;">EVENT </a>
+          <a class="nav-link" href="{% url 'website:events' %}">EVENT </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'website:hotel' %}"style="font-weight: bold;">NIGHT OUT</a>
+        <a class="nav-link" href="{% url 'website:hotel' %}">NIGHT OUT</a>
       </li>
     
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'website:payments' %}"style="font-weight: bold;">PAYMENTS</a>
+            <a class="nav-link" href="{% url 'website:payments' %}">PAYMENTS</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'website:volunteer' %}"style="font-weight: bold;">VOLUNTEER PLACES</a>
+            <a class="nav-link" href="{% url 'website:volunteer' %}">VOLUNTEER PLACES</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'website:students' %}"style="font-weight: bold;">STUDENTS</a>
+            <a class="nav-link" href="{% url 'website:students' %}">STUDENTS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'website:show_picked_volunteer' %}"style="font-weight: bold;">Picke Volunteer</a>
+          <a class="nav-link" href="{% url 'website:show_picked_volunteer' %}">Picke Volunteer</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link"  href="{% url 'website:notify' %}"style="font-weight: bold;">NOTIFY STUDENTS</a>
+        <a class="nav-link"  href="{% url 'website:notify' %}">NOTIFY STUDENTS</a>
       </li>
         <a
-          
         ></a>
-      </div>
-    </div>
-    <!-- Collapsible wrapper -->
-  </div>
-  <!-- Container wrapper -->
-</nav>
-<!-- Navbar -->
-      
- 
+           <!-- Dropdown -->
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+        VOLUNTEER
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li>
+            <a class="dropdown-item" href="{% url 'website:volunteer' %}">Action</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="{% url 'website:show_picked_volunteer' %}"></a>Another action</a>
+          </li>
+          <li>
+       
+          </li>
+        </ul>
+      </li>
+
      
       </ul>
     </div>
