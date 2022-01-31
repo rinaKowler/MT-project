@@ -94,8 +94,24 @@ class Lecture(models.Model):
 
 class StudentLecture(models.Model):
     name=models.CharField(max_length=50)
-    lecture1 = models.ForeignKey(
-        'lecture',related_name='lecture1', on_delete=models.RESTRICT, null=True, blank=True)
-    lecture2 = models.ForeignKey(
-        'lecture', related_name='lecture2', on_delete=models.RESTRICT, null=True, blank=True)
-    describe=models.CharField(max_length=200)
+    sunday_lecture1 = models.ForeignKey(
+        'lecture',related_name='sunday_lecture1', on_delete=models.RESTRICT, null=True, blank=True)
+    sunady_lecture2 = models.ForeignKey(
+        'lecture', related_name='sunday_lecture2', on_delete=models.RESTRICT, null=True, blank=True)
+    m1 = models.ForeignKey(
+        'lecture',related_name='m1', on_delete=models.RESTRICT, null=True, blank=True)
+    m2 = models.ForeignKey(
+        'lecture', related_name='m2', on_delete=models.RESTRICT, null=True, blank=True)
+    t1 = models.ForeignKey(
+        'lecture',related_name='t1', on_delete=models.RESTRICT, null=True, blank=True)
+    t2 = models.ForeignKey(
+        'lecture', related_name='t2', on_delete=models.RESTRICT, null=True, blank=True)
+    w1 = models.ForeignKey(
+        'lecture',related_name='w1', on_delete=models.RESTRICT, null=True, blank=True)
+    w2 = models.ForeignKey(
+        'lecture', related_name='w2', on_delete=models.RESTRICT, null=True, blank=True)
+    th1 = models.ForeignKey(
+        'lecture',related_name='th1', on_delete=models.RESTRICT, null=True, blank=True)
+    th2 = models.ForeignKey(
+        'lecture', related_name='th2', on_delete=models.RESTRICT, null=True, blank=True)
+      

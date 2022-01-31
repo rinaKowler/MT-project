@@ -1,0 +1,14 @@
+{% extends "website/template.html" %}
+{% block body %}
+{% include "website/payments/add_payment.html" %}
+{% load crispy_forms_tags %}
+
+ <h1 class="point"> All  Payments </h1>
+
+    {% for l in lecture %}
+ <p>
+{{l}}
+ </p>
+{% endfor %}
+
+{% endblock %}

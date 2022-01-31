@@ -309,16 +309,44 @@ def lecture_places(request):
          form = LectureForm(request.POST)
          if form.is_valid():
              form.save()
-    return pick_Lecture(request)
+    all_lecture = Lecture.objects.all()
+    sunday = [x for x in all_lecture if x.day == "sunday"]
+    monday = [x for x in all_lecture if x.day == "monday"]
+    tusday = [x for x in all_lecture if x.day == "tusday"]
+    wendsday = [x for x in all_lecture if x.day == "wendsday"]
+    thurdsay = [x for x in all_lecture if x.day == "thurdsay"]
+    all = {'sunday':sunday,'monday':monday,'tusday':tusday,'wendsday':wendsday,'thurdsay':thurdsay }
+    for a in all:
+        print(all[a])
+        print("----")
+    print(all)
+    return render (request,"website/lecture/show_lecture.html",{
+        "sunday":sunday,"monday":monday,'tusday':tusday,'wendsday':wendsday,'thurdsay':thurdsay,
+        "lectureForm":LectureForm(),
+     })
+
+
 
 def pick_Lecture(request):
     if request.method=='POST':
         name = request.POST.get('name')
-        id = request.POST.getlist('id')
-        lecture = Lecture.objects.filter(id=id[0]).first()
-        lecture2 = Lecture.objects.filter(id=id[1]).first()
+        s_id = request.POST.getlist('s_id')
+        m_id = request.POST.getlist('m_id')
+        t_id = request.POST.getlist('t_id')
+        w_id = request.POST.getlist('w_id')
+        th_id = request.POST.getlist('th_id')
 
-        StudentLecture(name=name,lecture1=lecture,lecture2 = lecture2).save()
+        s_lecture =None if not s_id or len(s_id) <2 else Lecture.objects.filter(id =s_id[0]).first()
+        s_lecture2 =None if not s_id or len(s_id) <2 else Lecture.objects.filter(id = s_id[1]).first()
+        m_lecture =None if not m_id or len(m_id) <2 else Lecture.objects.filter(id=m_id[0]).first()
+        m_lecture2 =None if not m_id or len(m_id) <2 else Lecture.objects.filter(id = m_id[1]).first()
+        t_lecture =None if not t_id or len( t_id) <2 else Lecture.objects.filter(id = t_id[0]).first()
+        t_lecture2 =None if not  t_id or len( t_id) <2 else Lecture.objects.filter(id = t_id[1]).first()
+        w_lecture =None if not w_id or len(w_id) <2 else Lecture.objects.filter(id =w_id[0]).first()
+        w_lecture2 =None if not w_id or len(w_id) <2 else Lecture.objects.filter(id = w_id[1]).first()
+        th_lecture =None if not th_id or len(th_id) <2 else Lecture.objects.filter(id =th_id[0]).first()
+        th_lecture2 =None if not th_id or len(th_id) <2 else Lecture.objects.filter(id = th_id[1]).first()
+        StudentLecture(name=name,sunday_lecture1=s_lecture,sunady_lecture2 = s_lecture2,m1=m_lecture,m2=m_lecture2,t1=t_lecture,t2=t_lecture2,w1=w_lecture,w2=w_lecture2,th1=th_lecture,th2=th_lecture2).save()
     all_lecture = Lecture.objects.all()
     sunday = [x for x in all_lecture if x.day == "sunday"]
     monday = [x for x in all_lecture if x.day == "monday"]
@@ -336,16 +364,19 @@ def pick_Lecture(request):
      })
 
 def show_picked_lecture(request):
+    name = 'Mrs. Levy'	
+    # request.POST.get('name')
+    day = 'sunday'
+    # request.POST.get('day')
+    lecture = Lecture.objects.filter(teacher=name,day=day).first().id
     all = StudentLecture.objects.all()
-    all_lecture1 = [x.lecture for x in all]
-    all_lecture2 = [x.lecture for x in all]
-    all_places = set([*all_lecture1,*all_lecture2])
-    list_lecture =[]
-    for lecture in all_lecture:
-        print([all[0].lecture])
-        all_students = [x.name for x in all if x.lecture.lecture == place.volunteer_place_name  or x.volunteer2.volunteer_place_name == place.volunteer_place_name]
-        list_places.append({'place':place,'students':all_students})
+    s = None if day is not 'sunday' else [x for x in all if x.sunday_lecture1.id == lecture or x.sunday_lecture2.id== lecture]
+    m  = None if day is not 'monday' else [x for x in all if x.m1.id == lecture or x.m2.id == lecture]
+    t = None if day is not 'tusday' else [x for x in all if x.t1.id == lecture or x.t2.id == lecture]
+    w = None if day is not 'wendsday' else [x for x in all if x.w1.id == lecture or x.w2.id == lecture]
+    th = None if day is not 'thursday' else [x for x in all if x.th1.id == lecture or x.th2.id== lecture]
+    students =[*s,*m,*t,*w,*th]
     return render (request,"website/show_picked_lecture.html",{
-        "lecture":list_places })
+        "lecture":students })
 
     
