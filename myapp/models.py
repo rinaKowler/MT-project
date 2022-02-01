@@ -92,6 +92,13 @@ class Lecture(models.Model):
     day=models.CharField(max_length=50)
     time=models.CharField(max_length=50,null=True, blank=True)
 
+class Atteendence(models.Model):
+    name =models.CharField(max_length=50)
+    date =models.DateTimeField(auto_now=True, null=True, blank=True)
+    lecture=models.ForeignKey(
+        'lecture', on_delete=models.RESTRICT, null=True, blank=True)
+    attendence=models.BooleanField(default=False)
+
 class StudentLecture(models.Model):
     name=models.CharField(max_length=50)
     sunday_lecture1 = models.ForeignKey(

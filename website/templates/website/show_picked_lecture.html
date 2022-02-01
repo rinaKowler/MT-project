@@ -1,14 +1,36 @@
 {% extends "website/template.html" %}
 {% block body %}
-{% include "website/payments/add_payment.html" %}
 {% load crispy_forms_tags %}
 
- <h1 class="point"> All  Payments </h1>
 
-    {% for l in lecture %}
- <p>
-{{l}}
- </p>
-{% endfor %}
+<form action="{% url 'website:show_picked_lecture' %}" method='post'>
+   {% csrf_token %} 
+
+
+<table class="table">
+   <thead>
+     <tr>
+       <th>attends</th>
+       <th scope="col">name</th>
+     </tr>
+   </thead>
+   <tbody>
+     {% for v in lecture %}
+   <tr>
+     <td>
+
+       <div class="form-check">
+         <input class="form-check-input" type="checkbox" name="id" value="{{v.name}}" id="{{v.name}}">
+       </div>
+     </td>
+     <td scope="row"> {{ v.name }}</td>
+   </tr>
+ {% endfor %}
+   </tbody>
+</table>
+<input id="lecture_id" type="hidden"  name="lecture_id" value={{lecture_id}}><br>
+
+<button type="submit" class="btn btn-dark">Save </button>
+</form>
 
 {% endblock %}

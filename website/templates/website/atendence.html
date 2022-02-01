@@ -1,0 +1,9 @@
+{% extends "website/template.html" %}
+{% block body %}
+{% load crispy_forms_tags %}
+
+<a class="nav-link" href="{% url 'website:show_atten' %}">show atten </a>
+
+<a class="nav-link" href="{% url 'website:atten_teacher_date' %}">take atten </a>
+
+{% endblock %}

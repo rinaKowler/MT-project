@@ -5,7 +5,7 @@ from django.db.models.fields import NullBooleanField
 from django.shortcuts import render
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
-from myapp.models import Event, HotelName, HotelRooms, NightOut, Payment, StudentVolunteer, Students, Volunteer,Staff,Lecture,StudentLecture
+from myapp.models import Event, HotelName, HotelRooms, NightOut, Payment, StudentVolunteer, Students, Volunteer,Staff,Lecture,StudentLecture,Atteendence
 from django.db.models import Q
 from myapp.forms import StudentsForm,PaymentsForm,VolunteerForm,HotelForm,RoomsForm,EventForm,StaffForm,StudentVForm,LectureForm
 from datetime import date
@@ -427,20 +427,59 @@ def pick_Lecture(request):
         "lectureForm":LectureForm(),
      })
 
-def show_picked_lecture(request):
-    name = 'Mrs. Levy'	
-    # request.POST.get('name')
-    day = 'sunday'
-    # request.POST.get('day')
+def show_picked_lecture(request):	
+    if request.method=='POST' and not request.POST.get('days'):
+        name_list = request.POST.getlist('id')
+        lecture_id  = request.POST.get('lecture_id')
+        lec = Lecture.objects.filter(id=lecture_id).first()
+        for name in name_list:
+            Atteendence(name =name,
+            lecture=lec ,attendence = True).save()
+        return atendence(request)
+    day = request.POST.get('days')
+    name = request.POST.get('teacher')
     lecture = Lecture.objects.filter(teacher=name,day=day).first().id
     all = StudentLecture.objects.all()
-    s = None if day is not 'sunday' else [x for x in all if x.sunday_lecture1.id == lecture or x.sunday_lecture2.id== lecture]
-    m  = None if day is not 'monday' else [x for x in all if x.m1.id == lecture or x.m2.id == lecture]
-    t = None if day is not 'tusday' else [x for x in all if x.t1.id == lecture or x.t2.id == lecture]
-    w = None if day is not 'wednsday' else [x for x in all if x.w1.id == lecture or x.w2.id == lecture]
-    th = None if day is not 'thursday' else [x for x in all if x.th1.id == lecture or x.th2.id== lecture]
+    s = [None ] if day != 'sunday' else [x for x in all if x.sunday_lecture1 and x.sunday_lecture1.id == lecture or x.sunady_lecture2 and x.sunady_lecture2.id== lecture]
+    m  = [None] if day != 'monday' else [x for x in all if x.m1 and x.m1.id == lecture or x.m2 and x.m2.id == lecture]
+    t = [None] if day != 'tusday' else [x for x in all if x.t1 and x.t1.id == lecture or x.t2 and x.t2.id == lecture]
+    w = [None] if day != 'wednsday' else [x for x in all if x.w1 and x.w1.id == lecture or x.w2 and  x.w2.id == lecture]
+    th = [None] if day != 'thursday' else [x for x in all if x.th1 and x.th1.id == lecture or x.th2 and x.th2.id== lecture]
     students =[*s,*m,*t,*w,*th]
+    students = [x for x in students if x]
     return render (request,"website/show_picked_lecture.html",{
-        "lecture":students })
+        "lecture":students,
+        "lecture_id": lecture })
 
-    
+def atten_teacher_date(request):
+    if request.method=='POST':
+        return show_picked_lecture(request)
+    all = Lecture.objects.all()
+    all = list(set([x.teacher for x in all]))
+    return render (request,"website/atten_teacher_date.html",{
+    "teachers":all })
+
+def atendence(request):
+    return render (request,"website/atendence.html")
+
+def show_atten(request):
+    if request.method=='POST':
+        return show_all_atten(request)
+    all = Lecture.objects.all()
+    all = list(set([x.teacher for x in all]))
+    return render (request,"website/show_atten.html",{
+    "teachers":all })
+
+def show_all_atten(request):
+    day = request.POST.get('days')
+    name = request.POST.get('teacher')
+    print(day,name)
+    all = Atteendence.objects.filter(lecture__teacher=name,lecture__day=day)
+    all_dates = len(list(set([x.date for x in all])))
+    all_atend = [x.name for x in all if x.attendence]
+    all_atend = [{'Student Name':x,'Classes Atended':all_atend.count(x)} for x in all_atend]
+    print(all,all_atend,all_atend)
+    return render (request,"website/show_all_atten.html",{
+    "all_dates":all_dates,
+    "all_atend":all_atend
+     })

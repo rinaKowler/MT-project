@@ -1,0 +1,38 @@
+{% extends "website/template.html" %}
+{% block body %}
+{% load crispy_forms_tags %}
+<form action="{% url 'website:show_atten' %}" method='post'>
+    {% csrf_token %}
+    <!-- <input id="hotelid" type="text"  name="hotel_name" value=''><br>
+
+<button type="submit" class="btn btn-dark">Save</button> -->
+
+<label for="teacher">Name of Teacher:</label>
+
+<select name="teacher" id="teacher">
+
+    {% for teacher in teachers %}
+    <option value="{{teacher}}">{{teacher}}</option>
+
+{% endfor%}
+   
+</select>
+    
+
+
+<label for="days">Day:</label>
+
+<select name="days" id="days">
+  <option value="sunday">sunday</option>
+  <option value="monday">monday</option>
+  <option value="tusday">tusday</option>
+  <option value="wednsday">wendsday</option>
+  <option value="thursday">thursday</option>
+
+</select>
+<button type="submit" class="btn btn-dark">Next</button>
+
+</form>
+
+    
+{% endblock %}

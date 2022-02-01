@@ -24,6 +24,13 @@ urlpatterns = [
     path("add_lecture", views.lecture_places, name="add_lecture"),
     path("pick_Lecture", views.pick_Lecture, name="pick_Lecture"),
     path("show_picked_lecture", views.show_picked_lecture, name="show_picked_lecture"),
+    path("atten_teacher_date", views.atten_teacher_date, name="atten_teacher_date"),
+    path("atendence", views.atendence, name="atendence"),
+    path("show_atten", views.show_atten, name="show_atten"),
+    path("show_all_atten", views.show_all_atten, name="show_all_atten"),
+
+
+
    # path("get_all_payments/<str:amount",views.show_all_pament_payment, name = "payment"),
    # path("get_all_students/<str: first_name", views.get_all_students, name="get_all_students"),
 ]
