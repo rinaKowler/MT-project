@@ -13,6 +13,69 @@ from random import shuffle
 from django.contrib.auth.decorators import login_required
 import xlwt
 
+import csv
+
+from django.contrib.auth.models import User
+
+def download_doc1(request):
+
+     response = HttpResponse(content_type='application/ms-excel')
+     response['Content-Disposition'] = 'attachment; filename="users.xls"'
+
+     wb = xlwt.Workbook(encoding='utf-8')
+     ws = wb.add_sheet('Users')
+
+     # Sheet header, first row
+     row_num = 0
+     font_style = xlwt.XFStyle()
+     font_style.font.bold = True
+
+     columns = ["Company","Paid","Amount" ]
+
+     for col_num in range(len(columns)):
+         ws.write(row_num, col_num, columns[col_num], font_style)
+
+     # Sheet body, remaining rows
+     font_style = xlwt.XFStyle()
+
+     rows = User.objects.all().values_list("Company","Paid","Amount")
+     for row in rows:
+         row_num += 1
+         for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+
+     wb.save(response)
+     return response
+    
+def download_doc(request):
+    
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="users.csv"'
+
+    writer = csv.writer(response)
+   
+    id = request.POST.get('id')
+    name = Event.objects.filter(id=id).first()
+    all_events = Event.objects.filter(event_name=name.event_name).all()
+    sumPayed = 0
+    sumUnpaid= 0
+
+    writer.writerow([name.event_name,name.event_date])
+    writer.writerow(["Company","Paid","Amount"])    
+    for event in all_events:
+         if event.payment.paid:
+            sumPayed =sumPayed+event.payment.amount
+         else:
+            sumUnpaid = sumUnpaid + event.payment.amount
+         writer.writerow([(event.payment.company),(event.payment.paid),(event.payment.amount)])
+    sum=sumPayed+sumUnpaid
+    writer.writerow(["Total Paid","Total Unpaid","Sum Total"])  
+    writer.writerow([sumPayed,sumUnpaid,sum])
+
+
+    return response
+
+  
 
 @login_required
 def home_page(request):
@@ -273,7 +336,7 @@ def  get_all_staff(request):
 def notify(request):
     return render(request,"website/notify.html")
 
-def download_doc(request):
+def download_doc2(request):
     id = request.POST.get('id')
     name = Event.objects.filter(id=id).first()
     all_events = Event.objects.filter(event_name=name.event_name).all()
@@ -303,6 +366,7 @@ def download_doc(request):
     return response
 
 
+
  
 def lecture_places(request):
     if request.method == 'POST':
@@ -313,15 +377,15 @@ def lecture_places(request):
     sunday = [x for x in all_lecture if x.day == "sunday"]
     monday = [x for x in all_lecture if x.day == "monday"]
     tusday = [x for x in all_lecture if x.day == "tusday"]
-    wendsday = [x for x in all_lecture if x.day == "wendsday"]
-    thurdsay = [x for x in all_lecture if x.day == "thurdsay"]
-    all = {'sunday':sunday,'monday':monday,'tusday':tusday,'wendsday':wendsday,'thurdsay':thurdsay }
+    wednesday = [x for x in all_lecture if x.day == "wednesday"]
+    thursday = [x for x in all_lecture if x.day == "thursday"]
+    all = {'sunday':sunday,'monday':monday,'tusday':tusday,'wednesday':wednesday,'thursday':thursday }
     for a in all:
         print(all[a])
         print("----")
     print(all)
     return render (request,"website/lecture/show_lecture.html",{
-        "sunday":sunday,"monday":monday,'tusday':tusday,'wendsday':wendsday,'thurdsay':thurdsay,
+        "sunday":sunday,"monday":monday,'tusday':tusday,'wednesday':wednesday,'thursday':thursday,
         "lectureForm":LectureForm(),
      })
 
@@ -351,15 +415,15 @@ def pick_Lecture(request):
     sunday = [x for x in all_lecture if x.day == "sunday"]
     monday = [x for x in all_lecture if x.day == "monday"]
     tusday = [x for x in all_lecture if x.day == "tusday"]
-    wendsday = [x for x in all_lecture if x.day == "wendsday"]
-    thurdsay = [x for x in all_lecture if x.day == "thurdsay"]
-    all = {'sunday':sunday,'monday':monday,'tusday':tusday,'wendsday':wendsday,'thurdsay':thurdsay }
+    wednesday = [x for x in all_lecture if x.day == "wednesday"]
+    thursday = [x for x in all_lecture if x.day == "thursday"]
+    all = {'sunday':sunday,'monday':monday,'tusday':tusday,'wednesday':wednesday,'thursday':thursday }
     for a in all:
         print(all[a])
         print("----")
     print(all)
     return render (request,"website/lecture/show_lecture.html",{
-        "sunday":sunday,"monday":monday,'tusday':tusday,'wendsday':wendsday,'thurdsay':thurdsay,
+        "sunday":sunday,"monday":monday,'tusday':tusday,'wednesday':wednesday,'thursday':thursday,
         "lectureForm":LectureForm(),
      })
 
@@ -373,7 +437,7 @@ def show_picked_lecture(request):
     s = None if day is not 'sunday' else [x for x in all if x.sunday_lecture1.id == lecture or x.sunday_lecture2.id== lecture]
     m  = None if day is not 'monday' else [x for x in all if x.m1.id == lecture or x.m2.id == lecture]
     t = None if day is not 'tusday' else [x for x in all if x.t1.id == lecture or x.t2.id == lecture]
-    w = None if day is not 'wendsday' else [x for x in all if x.w1.id == lecture or x.w2.id == lecture]
+    w = None if day is not 'wednsday' else [x for x in all if x.w1.id == lecture or x.w2.id == lecture]
     th = None if day is not 'thursday' else [x for x in all if x.th1.id == lecture or x.th2.id== lecture]
     students =[*s,*m,*t,*w,*th]
     return render (request,"website/show_picked_lecture.html",{
