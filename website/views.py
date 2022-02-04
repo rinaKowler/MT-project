@@ -50,7 +50,7 @@ def download_doc1(request):
 def download_doc(request):
     
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="users.csv"'
+    response['Content-Disposition'] = 'attachment; filename="Event Payments .csv"'
 
     writer = csv.writer(response)
    
@@ -103,9 +103,19 @@ def show_night_out_arrangement(request):
         dates = set([night.trip_date for night in nightout])
         for date in dates:
             all_students = [night for night in nightout if night.trip_date == date]
-            all_dates.append({'dates':all_students, 'id':all_students[0].id, 'hotel':all_students[0].hotel.name,
+            rooms_and_stu = []
+            room_ids = list(set([x.hotel.room.id for x in all_students]))
+            num =1
+            for room in room_ids:
+                st=''
+                for student in all_students:
+                    if student.hotel.room.id == room:
+                        st = st+ student.student.last_name +' ' + student.student.first_name +','
+                rooms_and_stu.append({'id':num,'students':st})
+                num = num +1
+            all_dates.append({'dates':rooms_and_stu, 'id':all_students[0].id, 'hotel':all_students[0].hotel.name,
             'date':all_students[0].trip_date})
-            print(all_dates)
+            print(all_students)
     # nightout = NightOut.objects.filter(trip_date__year = trip_date[:4], trip_date__month = trip_date[4:6]
     return render(request,"website/night_out_hotel.html",{
         "dates":all_dates
@@ -240,7 +250,10 @@ def  get_all_hotels(request):
     hotels_and_rooms =[]
     for hotel in all_hotel_names:
         id =  [h.id for h in all_hotels if h.name ==hotel][0]
-        hotels_and_rooms.append({'id':id,'name':hotel,'rooms':[h.room.number_of_beds for h in all_hotels if h.name == hotel and h.room]})
+        rooms=[h.room.number_of_beds for h in all_hotels if h.name == hotel and h.room]
+        num_of_rooms = len(rooms)
+        num_of_beds = sum(rooms)
+        hotels_and_rooms.append({'id':id,'name':hotel,'rooms':num_of_rooms,'beds':num_of_beds})
     print(hotels_and_rooms)
     return render (request,"website/hotel/show_hotel.html",{
         "hotel":hotels_and_rooms,
@@ -473,12 +486,12 @@ def show_atten(request):
 def show_all_atten(request):
     day = request.POST.get('days')
     name = request.POST.get('teacher')
-    print(day,name)
     all = Atteendence.objects.filter(lecture__teacher=name,lecture__day=day)
-    all_dates = len(list(set([x.date for x in all])))
-    all_atend = [x.name for x in all if x.attendence]
-    all_atend = [{'Student Name':x,'Classes Atended':all_atend.count(x)} for x in all_atend]
-    print(all,all_atend,all_atend)
+    all_dates = len(list(set([x.date.strftime("%m/%d/%Y, %H:%M") for x in all])))
+    print(all)
+    print(list(set([x.date for x in all])))
+    all_atend =[x.name for x in all if x.attendence]
+    all_atend = [{'StudentName':x,'ClassesAtended':all_dates-all_atend.count(x)} for x in list(set(all_atend))]
     return render (request,"website/show_all_atten.html",{
     "all_dates":all_dates,
     "all_atend":all_atend

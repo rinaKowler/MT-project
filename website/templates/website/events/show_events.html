@@ -17,12 +17,12 @@ data-target="#collapse-{{e.event.id}}">{{ e.event.event_name }} </button>
   <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#{{e.event.id}}">    
     Add A Payment
    </button>
-   <form action="{% url 'website:download_doc' %}" method='post'>
+   <!-- <form action="{% url 'website:download_doc' %}" method='post'>
 
     {% csrf_token %}
     <input id="hotelid" type="hidden"  name="id" value={{e.event.id}}><br>
   <button type="submit" class="btn btn-dark">Download</button>
-  </form>
+  </form> -->
   <table class="table">
     <thead>
       <tr>
@@ -45,8 +45,16 @@ data-target="#collapse-{{e.event.id}}">{{ e.event.event_name }} </button>
   {% endfor %}
     </tbody>
 </table>
+</button>
+<form action="{% url 'website:download_doc' %}" method='post'>
+
+ {% csrf_token %}
+ <input id="hotelid" type="hidden"  name="id" value={{e.event.id}}><br>
+<button type="submit" class="btn btn-dark">Download</button>
+</form>
 </div>
 </div>
+
 {% endfor %}
 
 

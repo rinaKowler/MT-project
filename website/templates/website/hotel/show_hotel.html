@@ -25,7 +25,8 @@
     <tr>
       <th scope="col">Hotel Name</th>
       <th scope="col">Rooms</th>
-
+      <th>Beds</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -33,9 +34,13 @@
   <tr>
     <th scope="row"><div>
       
-      {{ h.name }}
+      {{ h.name }}</div></th>
+      <th><div> 
   {{ h.rooms}}    </div></th>
-    <td>
+  <th><div>
+    {{h.beds}}
+  </div></th>  
+  <td>
       <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#{{h.id}}">    
       Add 
      </button>

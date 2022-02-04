@@ -1,7 +1,26 @@
 {% extends "website/template.html" %}
 {% block body %}
 {% load crispy_forms_tags %}
-{{all_atend}}
 
-{{all_dates}}
+
+</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Attendance</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in all_atend %}
+  <tr>
+    <td> {{ a.StudentName}}</td>
+    <td> {{ a.ClassesAtended}}</td>
+
+
+{% endfor %}
+  </tbody>
+
+
 {% endblock %}

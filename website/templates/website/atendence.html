@@ -2,8 +2,13 @@
 {% block body %}
 {% load crispy_forms_tags %}
 
-<a class="nav-link" href="{% url 'website:show_atten' %}">show atten </a>
 
-<a class="nav-link" href="{% url 'website:atten_teacher_date' %}">take atten </a>
+
+  
+<a class="nav-link" style="color:rgb(5, 4, 4)" href="{% url 'website:atten_teacher_date' %}">Take Attendance  </a>
+
+<a class="nav-link" style="color:rgb(5, 4, 4)" href="{% url 'website:show_atten' %}">Show Attendance  </a>
+
+
 
 {% endblock %}

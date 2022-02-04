@@ -16,13 +16,13 @@
   <thead>
     <tr>
       <th scope="col">Purchased Date</th>
-      <th scope="col">company</th>
-      <th scope="col">managed by</th>
-      <th scope="col">description</th>
-      <th scope="col">paid</th>
-      <th scope="col">amount</th>
-      <th scope="col">if not way</th>
-      <th scope="col">purchase date</th>
+      <th scope="col">Company</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Paid</th> 
+      <th scope="col">If Not Paid Way</th>
+      <th scope="col">Managed By</th>
+      <th scope="col">Description</th>
+      <th scope="col">Payment Date</th>
       
     </tr>
   </thead>
@@ -31,11 +31,11 @@
   <tr>
     <td scope="row"> {{ payment.purchased_date }}</td>
     <td> {{ payment.company }}</td>
+    <td> {{ payment.amount }}</td>
+    <td> {{ payment.paid }}</td>
+    <td> {{ payment.if_not_way }}</td>
     <td> {{ payment.managed_by }}</td>
     <td> {{ payment.description }}</td>
-    <td> {{ payment.paid }}</td>
-    <td> {{ payment.amount }}</td>
-    <td> {{ payment.if_not_way }}</td>
     <td> {{ payment.payment_date }}</td>
   </tr>
 {% endfor %}

@@ -49,8 +49,8 @@ data-target="#collapse-{{ date.id}}">{{ date.hotel}} {{ date.date }}</button>
     <tbody>
       {% for obj in date.dates %}
     <tr>
-      <th scope="row"> {{ obj.student.first_name }}  {{ obj.student.last_name }}</th>
-      <td> {{ obj.hotel.room.id }}</td>
+      <th scope="row"> {{ obj.students }}</th>
+      <td> {{ obj.id }}</td>
     </tr>
   {% endfor %}
     </tbody>
