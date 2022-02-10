@@ -488,9 +488,9 @@ def show_all_atten(request):
     name = request.POST.get('teacher')
     all = Atteendence.objects.filter(lecture__teacher=name,lecture__day=day)
     all_dates = len(list(set([x.date.strftime("%m/%d/%Y, %H:%M") for x in all])))
-    print(all)
-    print(list(set([x.date for x in all])))
+    print(all_dates)
     all_atend =[x.name for x in all if x.attendence]
+    print(all_atend)
     all_atend = [{'StudentName':x,'ClassesAtended':all_dates-all_atend.count(x)} for x in list(set(all_atend))]
     return render (request,"website/show_all_atten.html",{
     "all_dates":all_dates,

@@ -21,35 +21,48 @@
           <a class="nav-link" href="{% url 'website:home_page' %}"style="font-weight: bold;">HOME PAGE</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'website:pick_Lecture' %}" >CLASSES </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'website:atendence' %}" >ATTENDANCE </a>
-    </li>
-    
-    
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            LECTURE
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'website:atten_teacher_date' %}" >Take Attendance </a>
+            <a class="dropdown-item" href="{% url 'website:show_atten' %}" >Show Attendance </a>
+            <a class="dropdown-item"href="{% url 'website:pick_Lecture' %}" >Pick Lecture </a>
+            <a class="dropdown-item"href="{% url 'website:atendence' %}" >Attendance </a>
 
-        
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'website:events' %}">EVENT </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'website:hotel' %}">NIGHT OUT</a>
-      </li>
-    
+          </div> 
+          
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            EVENT
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'website:events' %}">Event </a>
+            <a class="dropdown-item" href="{% url 'website:hotel' %}">Night Out</a>
+         
+
+          </div>      
+          
+ 
+     <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          VOLUNTEER
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item"  href="{% url 'website:volunteer' %}">Volunteer Places</a>
+          <a class="dropdown-item" href="{% url 'website:show_picked_volunteer' %}">Pick Volunteer</a>
+
+        </div>
+   
         <li class="nav-item">
             <a class="nav-link" href="{% url 'website:payments' %}">PAYMENTS</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'website:volunteer' %}">VOLUNTEER PLACES</a>
-        </li>
+      
         <li class="nav-item">
             <a class="nav-link" href="{% url 'website:students' %}">STUDENTS</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'website:show_picked_volunteer' %}">Picke Volunteer</a>
-      </li>
+   
 
       <li class="nav-item">
         <a class="nav-link"  href="{% url 'website:notify' %}">NOTIFY STUDENTS</a>
@@ -57,31 +70,9 @@
         <a
         ></a>
            <!-- Dropdown -->
-      <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="navbarDropdownMenuLink"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
-        VOLUNTEER
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <li>
-            <a class="dropdown-item" href="{% url 'website:volunteer' %}">Action</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="{% url 'website:show_picked_volunteer' %}"></a>Another action</a>
-          </li>
-          <li>
-       
-          </li>
-        </ul>
-      </li>
+   
 
-     
       </ul>
     </div>
   </nav>
+  
