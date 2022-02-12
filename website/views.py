@@ -11,7 +11,6 @@ from myapp.forms import StudentsForm,PaymentsForm,VolunteerForm,HotelForm,RoomsF
 from datetime import date
 from random import shuffle
 from django.contrib.auth.decorators import login_required
-import xlwt
 
 import csv
 
@@ -75,13 +74,19 @@ def download_doc(request):
 
     return response
 
+
+def login_page(request):
+    return render(request,"registration/login.html")
+
   
 
 @login_required
 def home_page(request):
     paired = get_all_paired_students(1)
+    print(request.user.username)
     return render(request, "website/home_page.html", {
-            "paired": paired
+            "paired": paired,
+            "user": request.user.username if request.user else ""
 
     })
 

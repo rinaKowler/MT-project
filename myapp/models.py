@@ -4,9 +4,6 @@ from datetime import datetime, date
 from django.utils import timezone
 from django import forms
 from .models import *
-
-
-
 from django.db.models.fields.related import ForeignKey
 ## from myapp.views import payment
 

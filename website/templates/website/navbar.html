@@ -26,13 +26,15 @@
             LECTURE
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            {% if user == "kowler" %}
             <a class="dropdown-item" href="{% url 'website:atten_teacher_date' %}" >Take Attendance </a>
+            {% endif %}
             <a class="dropdown-item" href="{% url 'website:show_atten' %}" >Show Attendance </a>
             <a class="dropdown-item"href="{% url 'website:pick_Lecture' %}" >Pick Lecture </a>
-            <a class="dropdown-item"href="{% url 'website:atendence' %}" >Attendance </a>
 
           </div> 
-          
+        
+        {% if user == "kowler" %}  
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             EVENT
@@ -42,7 +44,8 @@
             <a class="dropdown-item" href="{% url 'website:hotel' %}">Night Out</a>
          
 
-          </div>      
+          </div>   
+        {% endif %}   
           
  
      <li class="nav-item dropdown">
@@ -51,22 +54,26 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item"  href="{% url 'website:volunteer' %}">Volunteer Places</a>
+          {% if user == "kowler" %}
           <a class="dropdown-item" href="{% url 'website:show_picked_volunteer' %}">Pick Volunteer</a>
-
+          {% endif %}
         </div>
-   
+        
+        {% if user == "kowler" %}
         <li class="nav-item">
             <a class="nav-link" href="{% url 'website:payments' %}">PAYMENTS</a>
         </li>
+        {% endif %}
       
         <li class="nav-item">
             <a class="nav-link" href="{% url 'website:students' %}">STUDENTS</a>
         </li>
    
-
+      {% if user == "kowler" %}
       <li class="nav-item">
         <a class="nav-link"  href="{% url 'website:notify' %}">NOTIFY STUDENTS</a>
       </li>
+      {% endif %}
         <a
         ></a>
            <!-- Dropdown -->
