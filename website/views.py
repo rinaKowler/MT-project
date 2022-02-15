@@ -12,39 +12,12 @@ from datetime import date
 from random import shuffle
 from django.contrib.auth.decorators import login_required
 
+
 import csv
 
 from django.contrib.auth.models import User
 
-def download_doc1(request):
 
-     response = HttpResponse(content_type='application/ms-excel')
-     response['Content-Disposition'] = 'attachment; filename="users.xls"'
-
-     wb = xlwt.Workbook(encoding='utf-8')
-     ws = wb.add_sheet('Users')
-
-     # Sheet header, first row
-     row_num = 0
-     font_style = xlwt.XFStyle()
-     font_style.font.bold = True
-
-     columns = ["Company","Paid","Amount" ]
-
-     for col_num in range(len(columns)):
-         ws.write(row_num, col_num, columns[col_num], font_style)
-
-     # Sheet body, remaining rows
-     font_style = xlwt.XFStyle()
-
-     rows = User.objects.all().values_list("Company","Paid","Amount")
-     for row in rows:
-         row_num += 1
-         for col_num in range(len(row)):
-            ws.write(row_num, col_num, row[col_num], font_style)
-
-     wb.save(response)
-     return response
     
 def download_doc(request):
     
@@ -95,7 +68,10 @@ def get_trips(request):
     for trip in all_trips:
         print(trip)
     return render(request,"website/show_trip.html",{
-        "trips":all_trips
+        "trips":all_trips,
+         "user": request.user.username if request.user else ""
+
+        
     })
 
 def show_night_out_arrangement(request):
@@ -123,7 +99,9 @@ def show_night_out_arrangement(request):
             print(all_students)
     # nightout = NightOut.objects.filter(trip_date__year = trip_date[:4], trip_date__month = trip_date[4:6]
     return render(request,"website/night_out_hotel.html",{
-        "dates":all_dates
+        "dates":all_dates,
+                    "user": request.user.username if request.user else ""
+
     })
 
 
@@ -154,6 +132,7 @@ def set_hotel_arrengment(hotel_name):
         for student in room['students']:
 
             NightOut(student=student, hotel=hotel, trip_date= date.today()).save()
+        
 
     # todo:add room_students to db
     return rooms
@@ -187,6 +166,8 @@ def  get_all_students(request):
     return render (request,"website/students/show_students.html",{
         "students":all_students,
         "studentsForm": StudentsForm(),
+         "user": request.user.username if request.user else ""
+
 })
 
 
@@ -202,6 +183,8 @@ def  get_all_payments(request):
         "payments":all_payments,
         "payment": payment,
         "paymentsForm": PaymentsForm(),
+       "user": request.user.username if request.user else ""
+
      } ) 
 
 def valnter_places(request):
@@ -213,6 +196,8 @@ def valnter_places(request):
     return render (request,"website/volunteer/show_volunteer_places.html",{
         "volunteer":all_volunteer,
          "volunteersForm": VolunteerForm(),
+           "user": request.user.username if request.user else ""
+
      })
 
 def pick_valnter(request):
@@ -221,13 +206,15 @@ def pick_valnter(request):
         id = request.POST.getlist('id')
         name = request.POST.get('name')
         val = Volunteer.objects.filter(id=id[0]).first()
-        val2 = Volunteer.objects.filter(id=id[1]).first()
+        val2 = Volunteer.objects.filter(id=id[1]).first() if len(id) > 1 else None
 
         StudentVolunteer(name=name,volunteer=val,volunteer2 = val2, describe=description).save()
     all_volunteer = Volunteer.objects.all()
     return render (request,"website/volunteer/show_volunteer_places.html",{
         "volunteer":all_volunteer,
          "volunteersForm": VolunteerForm(),
+         "user": request.user.username if request.user else ""
+
      })
 
 def show_picked_volunteer(request):
@@ -238,10 +225,12 @@ def show_picked_volunteer(request):
     list_places =[]
     for place in all_places:
         print([all[0].volunteer])
-        all_students = [x.name for x in all if x.volunteer.volunteer_place_name == place.volunteer_place_name  or x.volunteer2.volunteer_place_name == place.volunteer_place_name]
+        all_students = [{'name':x.name,'describe':x.describe} for x in all if x.volunteer and place and (x.volunteer.volunteer_place_name == place.volunteer_place_name  or x.volunteer2 and  x.volunteer2.volunteer_place_name == place.volunteer_place_name)]
         list_places.append({'place':place,'students':all_students})
     return render (request,"website/show_picked_volunteer.html",{
-        "volunteer":list_places })
+        "volunteer":list_places ,          
+        "user": request.user.username if request.user else ""
+})
 
         
 def  get_all_hotels(request):
@@ -263,7 +252,9 @@ def  get_all_hotels(request):
     return render (request,"website/hotel/show_hotel.html",{
         "hotel":hotels_and_rooms,
         "hotelForm": HotelForm(),
-        "roomsForm": RoomsForm()
+        "roomsForm": RoomsForm(),
+          "user": request.user.username if request.user else ""
+
     })
 
 def add_room_to_hotel(request):
@@ -307,6 +298,8 @@ def  get_all_events(request):
         "event":events_and_payments,
         "eventForm": EventForm(),
         "paymentForm":PaymentsForm(),
+         "user": request.user.username if request.user else ""
+
     })
 
 def add_payment_to_event(request):
@@ -348,11 +341,16 @@ def  get_all_staff(request):
     return render (request,"website/staff/show_staff.html",{
         "staff":all_staff,
         "staffForm": StaffForm(),
+         "user": request.user.username if request.user else ""
+
     })
 
 
 def notify(request):
-    return render(request,"website/notify.html")
+    return render(request,"website/notify.html",
+    {   "user": request.user.username if request.user else ""
+})
+
 
 def download_doc2(request):
     id = request.POST.get('id')
@@ -405,6 +403,8 @@ def lecture_places(request):
     return render (request,"website/lecture/show_lecture.html",{
         "sunday":sunday,"monday":monday,'tusday':tusday,'wednesday':wednesday,'thursday':thursday,
         "lectureForm":LectureForm(),
+       "user": request.user.username if request.user else ""
+
      })
 
 
@@ -443,6 +443,8 @@ def pick_Lecture(request):
     return render (request,"website/lecture/show_lecture.html",{
         "sunday":sunday,"monday":monday,'tusday':tusday,'wednesday':wednesday,'thursday':thursday,
         "lectureForm":LectureForm(),
+         "user": request.user.username if request.user else ""
+
      })
 
 def show_picked_lecture(request):	
@@ -467,7 +469,9 @@ def show_picked_lecture(request):
     students = [x for x in students if x]
     return render (request,"website/show_picked_lecture.html",{
         "lecture":students,
-        "lecture_id": lecture })
+        "lecture_id": lecture ,
+         "user": request.user.username if request.user else ""
+})
 
 def atten_teacher_date(request):
     if request.method=='POST':
@@ -475,7 +479,9 @@ def atten_teacher_date(request):
     all = Lecture.objects.all()
     all = list(set([x.teacher for x in all]))
     return render (request,"website/atten_teacher_date.html",{
-    "teachers":all })
+    "teachers":all,
+     "user": request.user.username if request.user else ""
+ })
 
 def atendence(request):
     return render (request,"website/atendence.html")
@@ -486,7 +492,9 @@ def show_atten(request):
     all = Lecture.objects.all()
     all = list(set([x.teacher for x in all]))
     return render (request,"website/show_atten.html",{
-    "teachers":all })
+    "teachers":all ,
+    "user": request.user.username if request.user else ""
+})
 
 def show_all_atten(request):
     day = request.POST.get('days')
@@ -499,5 +507,7 @@ def show_all_atten(request):
     all_atend = [{'StudentName':x,'ClassesAtended':all_dates-all_atend.count(x)} for x in list(set(all_atend))]
     return render (request,"website/show_all_atten.html",{
     "all_dates":all_dates,
-    "all_atend":all_atend
+    "all_atend":all_atend,
+ "user": request.user.username if request.user else ""
+
      })

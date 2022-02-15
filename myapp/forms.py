@@ -5,6 +5,10 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Column, Row, HTML
 
 
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()
+
 class DateInput(forms.DateInput):
     input_type= 'event_date'
 

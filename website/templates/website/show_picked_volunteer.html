@@ -5,10 +5,25 @@
 <h2>
     {{v.place.volunteer_place_name}}
 </h2>
-{% for s in v.students %}
-<p> {{s}}, </p>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Describe</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for s in v.students %}
 
-{% endfor %}
+    <tr>
+      <td>{{s.name}}</td>
+      <td>{{s.describe}}</td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+    </table>
+
 {% endfor %}
 
 

@@ -2,11 +2,12 @@
 {% block body %}
 
 {% include "website/lecture/add_lecture.html" %}
-
+{% if user == "kowler" %}  
 
 <td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
-    Edit a class
+    Edit A Lecture
   </button> </td>
+  {% endif %}   
 
 <form action="{% url 'website:pick_Lecture' %}" method='post'>
   {% csrf_token %}
