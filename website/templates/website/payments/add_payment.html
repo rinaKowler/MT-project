@@ -16,13 +16,19 @@
            </button>
          </div>
          <div class="modal-body">
-             <form action="{% url 'website:payments' %}" method='post'>
+             <!-- <form action="{% url 'website:payments' %}" method='post'>
                  {% csrf_token %}
              {{  paymentsForm |crispy }}
              <button type="submit" class="btn btn-dark">Save</button>
- 
-             </form>
-
+  -->
+             <!-- </form> -->
+             <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{  paymentsForm |crispy }}
+              <button type="submit">Upload</button>
+            </form>
+          
+            <p><a href="{% url  'website:payments' %}">Return to home</a></p>
 
          </div>
        </div>

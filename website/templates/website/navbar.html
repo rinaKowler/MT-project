@@ -53,9 +53,9 @@
           VOLUNTEER
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item"  href="{% url 'website:volunteer' %}">Volunteer Places</a>
+          <a class="dropdown-item"  href="{% url 'website:volunteer' %}">Pick Volunteer Place </a>
           {% if user == "kowler" %}
-          <a class="dropdown-item" href="{% url 'website:show_picked_volunteer' %}">Pick Volunteer</a>
+          <a class="dropdown-item" href="{% url 'website:show_picked_volunteer' %}">Show all Picked Volunteers</a>
           {% endif %}
         </div>
         

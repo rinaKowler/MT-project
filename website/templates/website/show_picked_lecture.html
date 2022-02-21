@@ -5,6 +5,8 @@
 
 <form action="{% url 'website:show_picked_lecture' %}" method='post'>
    {% csrf_token %} 
+   <h1 class="point">{{lecture.teacher}}</h1>
+
 
 
 <table class="table">

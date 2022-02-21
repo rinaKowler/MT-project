@@ -2,6 +2,8 @@
 {% block body %}
 
 {% include "website/volunteer/add_volunteer_place.html" %}
+{% if user == "kowler" %}
+
 
 <td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
   Delet a Volunteer Places
@@ -10,6 +12,8 @@
  <td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
   Edit a Volunteer Places
  </button> </td>
+ {% endif %}
+ <h1 > Chose one or two places you will want to volunteer this year and explain way </h1>
 
  <form action="{% url 'website:pick_volunteer' %}" method='post'>
   {% csrf_token %}
@@ -42,7 +46,7 @@
   {% endfor %}
     </tbody>
 </table>
-<input class="form-control" type="text" name='name' placeholder="name">
+<!-- <input class="form-control" type="text" name='name' placeholder="name"> -->
 <input class="form-control" type="text" name='description' placeholder="Explain">
  <button type="submit" class="btn btn-dark">Save </button>
 </form>

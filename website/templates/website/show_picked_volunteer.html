@@ -1,5 +1,6 @@
 {% extends "website/template.html" %}
 {% block body %}
+<div class="container-fluid">
 
 {% for v in volunteer %}
 <h2>
@@ -7,17 +8,16 @@
 </h2>
 <table class="table">
   <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Describe</th>
+    <tr class="d-flex">
+      <th scope="col"  class="col-3">Name</th>
+      <th scope="col"  class="col-3">Explain</th>
     </tr>
   </thead>
   <tbody>
     {% for s in v.students %}
-
-    <tr>
-      <td>{{s.name}}</td>
-      <td>{{s.describe}}</td>
+    <tr class="d-flex">
+      <td  class="col-3">{{s.name}}</td>
+      <td  class="col-3">{{s.describe}}</td>
     </tr>
     {% endfor %}
 
@@ -25,7 +25,7 @@
     </table>
 
 {% endfor %}
-
+</div>
 
 <!-- <table class="table">
     <thead>

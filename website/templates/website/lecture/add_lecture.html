@@ -1,9 +1,11 @@
 {% load crispy_forms_tags %}
 
+{% if user == "kowler" %}
 <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
     Add  A New Lecture 
    </button>
-   
+   {% endif %}
+
    <!-- Modal -->
    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
      <div class="modal-dialog" role="document">

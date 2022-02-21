@@ -1,22 +1,32 @@
 from calendar import TUESDAY, WEDNESDAY
+from multiprocessing import context
 from os import name
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.db.models.fields import NullBooleanField
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http.response import HttpResponse
-from django.shortcuts import render, redirect
 from myapp.models import Event, HotelName, HotelRooms, NightOut, Payment, StudentVolunteer, Students, Volunteer,Staff,Lecture,StudentLecture,Atteendence
 from django.db.models import Q
 from myapp.forms import StudentsForm,PaymentsForm,VolunteerForm,HotelForm,RoomsForm,EventForm,StaffForm,StudentVForm,LectureForm
 from datetime import date
 from random import shuffle
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import FileSystemStorage
+
 
 
 import csv
 
 from django.contrib.auth.models import User
 
+def upload(request):
+    context={}
+    if request.method == 'POST':
+      upload_file=request.FILES['document']
+      fs=FileSystemStorage()
+      name=fs.save(upload_file.name,upload_file)
+      context ['url']=fs.url(name)   
+    return render(request,"upload.html",context)
 
     
 def download_doc(request):
@@ -47,6 +57,33 @@ def download_doc(request):
 
     return response
 
+    
+def download_doc1(request):
+    
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Voluntter .csv"'
+
+    writer = csv.writer(response)
+   
+    id = request.POST.get('id')
+    name = Volunteer.objects.filter(id=id).first()
+    all_volunteer = Volunteer.objects.filter(volunteer_place_name=name.volunteer_place_name).all()
+
+    writer.writerow([name.volunteer_place_name])
+    for event in all_events:
+         if event.payment.paid:
+            sumPayed =sumPayed+event.payment.amount
+         else:
+            sumUnpaid = sumUnpaid + event.payment.amount
+         writer.writerow([(event.payment.company),(event.payment.paid),(event.payment.amount)])
+    sum=sumPayed+sumUnpaid    
+    writer.writerow(["Name","Explain"])    
+    writer.writerow([(StudentVolunteer.name),(StudentVolunteer.describe)])
+
+
+
+    return response
+
 
 def login_page(request):
     return render(request,"registration/login.html")
@@ -56,7 +93,6 @@ def login_page(request):
 @login_required
 def home_page(request):
     paired = get_all_paired_students(1)
-    print(request.user.username)
     return render(request, "website/home_page.html", {
             "paired": paired,
             "user": request.user.username if request.user else ""
@@ -170,15 +206,23 @@ def  get_all_students(request):
 
 })
 
+def upload_recipt(request):
+    return render (request,)
 
 def  get_all_payments(request):
+    print('60')
     if request.method == 'POST':
-        form = PaymentsForm(request.POST)
+        print('0')
+        form = PaymentsForm(request.POST,request.FILES)
         if form.is_valid():
             payment = form.save()
+            print ('1')
+        else :
+            form=PaymentsForm()
+            print('2')
     all_payments = Payment.objects.all()
     payment= Payment.objects.filter( paid=False)
-
+    print(all_payments,payment )
     return render (request,"website/payments/show_payments.html",{
         "payments":all_payments,
         "payment": payment,
@@ -204,7 +248,11 @@ def pick_valnter(request):
     if request.method=='POST':
         description = request.POST.get('description')
         id = request.POST.getlist('id')
-        name = request.POST.get('name')
+        from django.contrib.auth.models import User
+        user = User.objects.filter(username=request.user.username).first()
+        last_name = user.last_name
+        first_name = user.first_name
+        name = first_name + ' ' + last_name
         val = Volunteer.objects.filter(id=id[0]).first()
         val2 = Volunteer.objects.filter(id=id[1]).first() if len(id) > 1 else None
 
@@ -411,7 +459,12 @@ def lecture_places(request):
 
 def pick_Lecture(request):
     if request.method=='POST':
-        name = request.POST.get('name')
+        # name = request.POST.get('name')
+        from django.contrib.auth.models import User
+        user = User.objects.filter(username=request.user.username).first()
+        last_name = user.last_name
+        first_name = user.first_name
+        name = first_name + ' ' + last_name
         s_id = request.POST.getlist('s_id')
         m_id = request.POST.getlist('m_id')
         t_id = request.POST.getlist('t_id')
@@ -497,9 +550,23 @@ def show_atten(request):
 })
 
 def show_all_atten(request):
+
+    import sys
+    from django.contrib.auth.models import User
+    user = User.objects.filter(username=request.user.username).first()
+    print(user.last_name)
+    last_name = user.last_name
+    first_name = user.first_name
     day = request.POST.get('days')
     name = request.POST.get('teacher')
-    all = Atteendence.objects.filter(lecture__teacher=name,lecture__day=day)
+    print("name",first_name + ' ' + last_name)
+    if request.user.username == 'kowler':
+        all = Atteendence.objects.filter(lecture__teacher=name,lecture__day=day)
+    else:
+        all = Atteendence.objects.filter(name =first_name + ' ' + last_name,lecture__teacher=name,lecture__day=day)
+        print("all",all)
+        all = Atteendence.objects.filter(name =first_name + ' ' + last_name)
+
     all_dates = len(list(set([x.date.strftime("%m/%d/%Y, %H:%M") for x in all])))
     print(all_dates)
     all_atend =[x.name for x in all if x.attendence]

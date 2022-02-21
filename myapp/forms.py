@@ -33,15 +33,15 @@ class PaymentsForm(ModelForm):
 
     class Meta:
         model = Payment
-        fields = ['company','managed_by','description','amount','paid','if_not_way',]
-        widgets = {
-            'company': forms.TextInput(),
-            'managed_by': forms.TextInput(),
-            'description': forms.TextInput(),
-            'amount': forms.TextInput(),
-            'if_not_way': forms.TextInput(),
-
-              } 
+        fields = ['company','managed_by','description','amount','paid','if_not_way','recipt',]
+        # widgets = {
+        #     'company': forms.TextInput(),
+        #     'managed_by': forms.TextInput(),
+        #     'description': forms.TextInput(),
+        #     'amount': forms.TextInput(),
+        #     'if_not_way': forms.TextInput(),
+        #     'recipt' : forms.ImageField(),
+        #       } 
     
 class VolunteerForm(ModelForm):
     class Meta:

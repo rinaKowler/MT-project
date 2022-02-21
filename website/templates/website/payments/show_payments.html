@@ -23,6 +23,8 @@
       <th scope="col">Managed By</th>
       <th scope="col">Description</th>
       <th scope="col">Payment Date</th>
+      <th scope="col">View</th>
+
       
     </tr>
   </thead>
@@ -37,6 +39,15 @@
     <td> {{ payment.managed_by }}</td>
     <td> {{ payment.description }}</td>
     <td> {{ payment.payment_date }}</td>
+    <td>
+      {% if payment and payment.recipt and payment.recipt.url %}
+      <button>
+      <a href="{{ payment.recipt.url }}" class="btn btn-dark" target= "blank">
+        View Recipt
+      </a></button>
+    {% endif %}
+      </td>
+
   </tr>
 {% endfor %}
   </tbody>

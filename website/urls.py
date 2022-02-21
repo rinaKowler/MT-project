@@ -34,9 +34,13 @@ urlpatterns = [
     path("atendence", views.atendence, name="atendence"),
     path("show_atten", views.show_atten, name="show_atten"),
     path("show_all_atten", views.show_all_atten, name="show_all_atten"),
+    path("upload", views.upload, name="upload"),
+]
 
+if settings.DEBUG:
+     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
    # path("get_all_payments/<str:amount",views.show_all_pament_payment, name = "payment"),
    # path("get_all_students/<str: first_name", views.get_all_students, name="get_all_students"),
-]
+
