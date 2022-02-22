@@ -46,10 +46,9 @@ class PaymentsForm(ModelForm):
 class VolunteerForm(ModelForm):
     class Meta:
         model = Volunteer
-        fields = ['category','volunteer_place_name','address','describe',]
+        fields = ['category','address','describe',]
         widgets = {
             'category': forms.TextInput(),
-            'volunteer_place_name': forms.TextInput(),
             'address': forms.TextInput(),
             'describe': forms.TextInput(),
         

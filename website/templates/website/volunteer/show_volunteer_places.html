@@ -5,16 +5,11 @@
 {% if user == "kowler" %}
 
 
-<td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
-  Delet a Volunteer Places
- </button> </td>
 
- <td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
-  Edit a Volunteer Places
- </button> </td>
+
  {% endif %}
- <h1 > Chose one or two places you will want to volunteer this year and explain way </h1>
-
+ <h1 > Please choose 1 or 2 options in order of prefernce: </h1>
+ <h1 > </h1>
  <form action="{% url 'website:pick_volunteer' %}" method='post'>
   {% csrf_token %}
 
@@ -23,10 +18,11 @@
     <thead>
       <tr>
         <th></th>
-        <th scope="col">category</th>
-        <th scope="col">name</th>
-        <th scope="col">address</th>
-        <th scope="col">description</th>
+        <th scope="col">Category</th>
+        <th scope="col">Place</th>
+        <th scope="col">Description</th>
+        <th scope="col"></th>
+
       </tr>
     </thead>
     <tbody>
@@ -39,15 +35,22 @@
         </div>
       </td>
       <td scope="row"> {{ v.category }}</td>
-      <td> {{ v.volunteer_place_name }}</td>
       <td> {{ v.address }}</td> 
       <td> {{ v.describe }}</td>
+      
+<td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+  Delet
+ </button> </td>
+ <td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+  Edit
+ </button> </td>
+ 
     </tr>
   {% endfor %}
     </tbody>
 </table>
 <!-- <input class="form-control" type="text" name='name' placeholder="name"> -->
-<input class="form-control" type="text" name='description' placeholder="Explain">
+<input class="form-control" type="text" name='description' placeholder="Comments">
  <button type="submit" class="btn btn-dark">Save </button>
 </form>
 
