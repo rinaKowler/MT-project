@@ -27,7 +27,7 @@ data-target="#collapse-{{e.event.id}}">{{ e.event.event_name }} </button>
         <th scope="col">Amount</th>
         <th scope="col">Paid</th>
         <th scope="col">Explain </th>
-        <th scope="col">Payment Date</th>
+        <th scope="col">Purchased Date</th>
         <th scope="col">View</th>
 
       </tr>
@@ -39,11 +39,11 @@ data-target="#collapse-{{e.event.id}}">{{ e.event.event_name }} </button>
       <td> {{ p.amount }}</td>
       <td> {{ p.paid }}</td>
       <td> {{ p.if_not_way }}</td>
-      <td> {{ p.payment_date }}</td>
+      <td> {{ p.purchased_date }}</td>
       <td>
         {% if p and p.recipt and p.recipt.url %}
         <button type="button"  class="btn btn-dark" >
-          <a style="color:white"  href="{{ payment.recipt.url }}"> View Recipt</a>
+          <a style="color:white"  href="{{ p.recipt.url }}"> View Recipt</a>
         </button></td>
         
   
@@ -80,12 +80,20 @@ data-target="#collapse-{{e.event.id}}">{{ e.event.event_name }} </button>
         </button>
       </div>
       <div class="modal-body">
+        
+        
+        
+     
+
+        
+        
         <form action="{% url 'website:add_payment_to_event' %}" method='post'>
 
         {% csrf_token %}
         <input id="hotelid" type="hidden"  name="event_id" value={{e.event.id}}><br>
             {{paymentForm|crispy}}
-     
+    
+
       <button type="submit" class="btn btn-dark">Save changes</button>
       </form>
       </div>

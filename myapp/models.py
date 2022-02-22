@@ -50,13 +50,13 @@ class Event (models.Model):
 
 class Payment (models.Model):
     company=models.CharField(max_length=200)
-    purchased_date=models.DateField(null=True, blank=True)
+    purchased_date=models.DateField(auto_now=True,null=True, blank=True)
     managed_by=models.CharField(max_length=50, null=True, blank=True)
     description=models.TextField(max_length=400, null=True, blank=True)
     amount=models.IntegerField( null=True)
     paid= models.BooleanField(default=False)
     if_not_way=models.TextField(max_length=400, null=True, blank=True)
-    payment_date=models.DateTimeField( null=True, blank=True)
+    payment_date=models.DateTimeField(auto_now=True, null=True, blank=True)
     recipt = models.ImageField (upload_to='payment/recipts/', null=True, blank=True)
     def _str_ (self):
          return self.company 
