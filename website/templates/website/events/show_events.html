@@ -31,6 +31,8 @@ data-target="#collapse-{{e.event.id}}">{{ e.event.event_name }} </button>
         <th scope="col">Paid</th>
         <th scope="col">Explain </th>
         <th scope="col">Payment Date</th>
+        <th scope="col">View</th>
+
       </tr>
     </thead>
     <tbody>
@@ -41,6 +43,17 @@ data-target="#collapse-{{e.event.id}}">{{ e.event.event_name }} </button>
       <td> {{ p.paid }}</td>
       <td> {{ p.if_not_way }}</td>
       <td> {{ p.payment_date }}</td>
+      <td>
+        {% if p and p.recipt and p.recipt.url %}
+        <button type="button"  class="btn btn-dark" >
+          <a style="color:white"  href="{{ payment.recipt.url }}"> View Recipt</a>
+        </button></td>
+        
+  
+      {% endif %}
+  
+  
+  
     </tr>
   {% endfor %}
     </tbody>

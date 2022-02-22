@@ -19,9 +19,7 @@
       <th scope="col">Company</th>
       <th scope="col">Amount</th>
       <th scope="col">Paid</th> 
-      <th scope="col">If Not Paid Way</th>
-      <th scope="col">Managed By</th>
-      <th scope="col">Description</th>
+      <th scope="col">Comments </th>
       <th scope="col">Payment Date</th>
       <th scope="col">View</th>
 
@@ -35,18 +33,15 @@
     <td> {{ payment.company }}</td>
     <td> {{ payment.amount }}</td>
     <td> {{ payment.paid }}</td>
-    <td> {{ payment.if_not_way }}</td>
-    <td> {{ payment.managed_by }}</td>
     <td> {{ payment.description }}</td>
     <td> {{ payment.payment_date }}</td>
     <td>
       {% if payment and payment.recipt and payment.recipt.url %}
-      <button>
-      <a href="{{ payment.recipt.url }}" class="btn btn-dark" target= "blank">
-        View Recipt
-      </a></button>
+      <button type="button"  class="btn btn-dark" >
+        <a style="color:white"  href="{{ payment.recipt.url }}"> View Recipt</a>
+      </button></td>
+    
     {% endif %}
-      </td>
 
   </tr>
 {% endfor %}

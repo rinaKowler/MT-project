@@ -4,10 +4,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include # new
 
+
 from website import views
 app_name = "website"
 
 urlpatterns = [
+  
     # path('admin/', admin.site.urls),
     # path('accounts/', include('django.contrib.auth.urls')), # new
     path("login", views.login_page, name="login"),
@@ -34,7 +36,8 @@ urlpatterns = [
     path("atendence", views.atendence, name="atendence"),
     path("show_atten", views.show_atten, name="show_atten"),
     path("show_all_atten", views.show_all_atten, name="show_all_atten"),
-    path("upload", views.upload, name="upload"),
+
+
 ]
 
 if settings.DEBUG:

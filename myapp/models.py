@@ -50,7 +50,7 @@ class Event (models.Model):
 
 class Payment (models.Model):
     company=models.CharField(max_length=200)
-    purchased_date=models.DateField(auto_now=True, blank=True)
+    purchased_date=models.DateField(null=True, blank=True)
     managed_by=models.CharField(max_length=50, null=True, blank=True)
     description=models.TextField(max_length=400, null=True, blank=True)
     amount=models.IntegerField( null=True)

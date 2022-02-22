@@ -1,0 +1,48 @@
+
+{% extends 'inv/base.html' %} 
+{% block body %}
+
+{% load crispy_forms_tags %}
+<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+    Add A New Payment
+
+   </button>
+   
+   <!-- Modal -->
+   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalLabel">  New Payment</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <div class="modal-body">
+             <!-- <form action="{% url 'website:payments' %}" method='post'>
+                 {% csrf_token %}
+             {{  paymentsForm |crispy }}
+             <button type="submit" class="btn btn-dark">Save</button>
+  -->
+             <!-- </form> -->
+             <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{  paymentsForm |crispy }}
+              <button type="submit">Upload</button>
+
+              <div class="form-group row">
+                <div class="offset-sm-2 col-sm-6">
+                  <button type="submit" class="btn btn-primary">Edit item</button>
+          
+                </div>
+            </form>
+            
+          
+            <p><a href="{% url  'website:payments' %}">Return to home</a></p>
+
+         </div>
+       </div>
+     </div>
+   </div>
+
+ 

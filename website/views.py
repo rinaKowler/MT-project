@@ -3,7 +3,7 @@ from multiprocessing import context
 from os import name
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.db.models.fields import NullBooleanField
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 from django.http.response import HttpResponse
 from myapp.models import Event, HotelName, HotelRooms, NightOut, Payment, StudentVolunteer, Students, Volunteer,Staff,Lecture,StudentLecture,Atteendence
 from django.db.models import Q
@@ -210,16 +210,13 @@ def upload_recipt(request):
     return render (request,)
 
 def  get_all_payments(request):
-    print('60')
+
     if request.method == 'POST':
-        print('0')
         form = PaymentsForm(request.POST,request.FILES)
         if form.is_valid():
             payment = form.save()
-            print ('1')
         else :
             form=PaymentsForm()
-            print('2')
     all_payments = Payment.objects.all()
     payment= Payment.objects.filter( paid=False)
     print(all_payments,payment )
@@ -366,7 +363,8 @@ def add_payment_to_event(request):
             amount=request.POST.get('amount'),
             paid=True if request.POST.get('paid') == 'on' else False,
             if_not_way=request.POST.get('if_not_way'),
-            payment_date=request.POST.get('payment_date')
+            payment_date=request.POST.get('payment_date'),
+            recipt=request.FILES.get('document'),
             )
         new_payment.save()
         event = Event.objects.filter(id=event_id).first()
@@ -578,3 +576,18 @@ def show_all_atten(request):
  "user": request.user.username if request.user else ""
 
      })
+
+def edit_item(request,pk,model,cls):
+    item= get_object_or_404(model,pk=pk)
+
+    if request.method=="POST":
+        form=cls(request.POTS,intsrance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form=cls(instance=item)
+        return render (request,'edit.html',{'form':form})
+
+def edit_payment (request,pk):
+    return edit_item (request,pk,Payment,PaymentsForm)
