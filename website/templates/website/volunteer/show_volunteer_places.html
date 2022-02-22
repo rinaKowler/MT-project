@@ -8,7 +8,7 @@
 
 
  {% endif %}
- <h1 > Please choose 1 or 2 options in order of prefernce: </h1>
+ <h1 > Please choose 1 or 2 options : </h1>
  <h1 > </h1>
  <form action="{% url 'website:pick_volunteer' %}" method='post'>
   {% csrf_token %}
@@ -21,6 +21,7 @@
         <th scope="col">Category</th>
         <th scope="col">Place</th>
         <th scope="col">Description</th>
+        <th scope="col"></th>
         <th scope="col"></th>
 
       </tr>
@@ -38,6 +39,8 @@
       <td> {{ v.address }}</td> 
       <td> {{ v.describe }}</td>
       
+ {% if user == "kowler" %}
+
 <td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
   Delet
  </button> </td>
@@ -46,8 +49,11 @@
  </button> </td>
  
     </tr>
+    {% endif %}
   {% endfor %}
     </tbody>
+
+
 </table>
 <!-- <input class="form-control" type="text" name='name' placeholder="name"> -->
 <input class="form-control" type="text" name='description' placeholder="Comments">

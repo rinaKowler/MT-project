@@ -367,6 +367,7 @@ def add_payment_to_event(request):
             recipt=request.FILES.get('document'),
             )
         new_payment.save()
+        print(request.FILES)
         event = Event.objects.filter(id=event_id).first()
         new_event = Event( event_name=event.event_name,
           

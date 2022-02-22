@@ -22,13 +22,14 @@
              <button type="submit" class="btn btn-dark">Save</button>
   -->
              <!-- </form> -->
+     
              <form method="post" enctype="multipart/form-data">
               {% csrf_token %}
               {{  paymentsForm |crispy }}
               <button type="submit">Upload</button>
             </form>
           
-            <p><a href="{% url  'website:payments' %}">Return to home</a></p>
+           <P><a href="{% url 'website:payments' % }">Return to home </a></P>
 
          </div>
        </div>

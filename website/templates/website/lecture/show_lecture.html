@@ -37,11 +37,14 @@
         <td scope="row"> {{ l.subject }}</td>
         <td> {{ l.teacher }}</td>
         <td> {{ l.time }}</td>
+              
+ {% if user == "kowler" %}
         <td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
           Edit
         </button> </td>
       </tr>
-     
+           
+ {% endif %}
       {% endfor %}
 
 
@@ -61,10 +64,13 @@
         <td scope="row"> {{ l.subject }}</td>
         <td> {{ l.teacher }}</td>
         <td> {{ l.time }}</td>
+        {% if user == "kowler" %}
         <td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
           Edit
         </button> </td>
       </tr>
+           
+ {% endif %}
       {% endfor %}
 
 
@@ -83,10 +89,13 @@
         <td scope="row"> {{ l.subject }}</td>
         <td> {{ l.teacher }}</td>
         <td> {{ l.time }}</td>
+        {% if user == "kowler" %}
         <td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
           Edit
         </button> </td>
       </tr>
+           
+ {% endif %}
       {% endfor %}
 
 
@@ -105,10 +114,13 @@
         <td scope="row"> {{ l.subject }}</td>
         <td> {{ l.teacher }}</td>
         <td> {{ l.time }}</td>
+        {% if user == "kowler" %}
         <td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
           Edit
         </button> </td>
       </tr>
+           
+ {% endif %}
       {% endfor %}
 
 
@@ -127,10 +139,13 @@
         <td scope="row"> {{ l.subject }}</td>
         <td> {{ l.teacher }}</td>
         <td> {{ l.time }}</td>
+        {% if user == "kowler" %}
         <td> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
           Edit
         </button> </td>
       </tr>
+           
+ {% endif %}
       {% endfor %}
     </tbody>
   </table>
